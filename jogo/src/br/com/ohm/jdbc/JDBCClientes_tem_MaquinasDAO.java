@@ -72,14 +72,13 @@ public class JDBCClientes_tem_MaquinasDAO implements Clientes_tem_MaquinasDAO{
 
 	public boolean inserirMaquinaEspecial(int clienteId) {
 		// TODO Auto-generated method stub
-		String comando = "INSERT INTO clientes_tem_maquinas (clientes_id,maquinas_id,multiplicador,quantidade,pesquisado) VALUES(?,?,?,?,?)";
+		String comando = "INSERT INTO clientes_tem_maquinas (clientes_id,maquinas_id,multiplicador,quantidade) VALUES(?,?,?,?)";
 		try {
 			PreparedStatement p = conexao.prepareStatement(comando);
 			p.setInt(1, clienteId);
 			p.setInt(2,1);
 			p.setInt(3, 1);
 			p.setInt(4, 1);
-			p.setInt(5, 0);
 			p.execute();
 		} catch (SQLException e) {
 			// TODO: handle exception
