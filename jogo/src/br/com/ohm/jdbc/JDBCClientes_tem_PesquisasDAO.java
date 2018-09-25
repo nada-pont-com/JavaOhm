@@ -9,6 +9,7 @@ import java.util.List;
 
 
 import br.com.ohm.classes.Clientes_tem_Pesquisas;
+import br.com.ohm.classes.Pesquisa;
 import br.com.ohm.jdbcinterface.Clientes_tem_PesquisasDAO;
 
 public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
@@ -48,6 +49,18 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
             e.printStackTrace();
         }
         return listaDePesquisasDoCliente;
+    }
+
+
+    public List<Clientes_tem_Pesquisas> inserirPesquisas(String clienteId,List<Pesquisa> listaDePesquisas){
+        String comando = "INSERT INTO clientes_tem_pesquisas (clientes_id,pesquisas_id,tempo,estado) VALUES (?,?,?,?)";
+        try {
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //TODO: handle exception
+        }
+        return null;
     }
 
 }
