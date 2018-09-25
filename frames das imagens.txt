@@ -1,0 +1,203 @@
+Bateria 2
+L:690
+A:370
+45 frames
+
+Bateria 1
+L: 1633
+A: 814
+23 frames
+
+
+Bateria 7:
+L: 159
+A: 271
+16 frames
+
+conficuração
+L: 82
+A: 74
+3 frames
+
+Melhoria
+L:70
+A:70
+2 frames
+
+bateria 5:
+L:476
+A:408
+16 frames
+
+
+bateria 3:
+L:266
+A:462
+17 frames
+
+bateria 4:
+L:266
+A:462
+17 frames
+
+carvão 1:
+L:228
+A:414
+3 frames
+
+carvão 2:
+L:224
+A:340
+3 frames
+
+carvão 2-1:
+L:210
+A:353
+3 frames
+
+carvão 2-2:
+L:294
+A:340
+3 frames
+
+carvão 3-1:
+L:291
+A:346
+3 frames
+
+carvão 3-2:
+L:281
+A:339
+3 frames
+
+
+solar 1:
+L:356
+A:428
+39 frames
+
+
+solar 2:
+L:358
+A:428
+33 frames
+
+antimateria 1:
+L:319
+A:214
+41 frames
+
+antimateria 2:
+L:319
+A:214
+41 frames
+
+
+nuclear 1:
+L:129
+A:118
+35 frames
+
+nuclear 2:
+L:120
+A:139 talvez  140
+35 frames
+
+
+nuclear 3:
+L:87
+A:87
+21 frames
+
+nuclear 2-1:
+L:118
+A:117
+27 frames
+
+nuclear 2-2:
+L:117
+A:109
+13 frames
+
+
+motor de fusão:
+L:207
+A:251
+35 frames
+
+
+inicio:
+L:1144
+A:580
+49 frames
+
+final:
+L:1144
+A:580
+21 frames
+
+pesquisa:
+L:49
+A:77
+2 frames
+
+compra:
+L:29
+A:46
+2 frames
+
+menu sem a seta:
+L:136
+A:580
+
+menu com a seta:
+L:156
+A:580
+
+seta menu:
+L:20
+A:38
+
+sobre o menu icones
+-68.5
+
+pause:
+L:106
+A:73
+3 frames
+
+resetarJ:
+L:143
+A:106
+2 frames
+
+resetarF:
+L:189
+A:152
+2 frames
+
+Salvar:
+L:124
+A:103
+3 frames
+
+menu comp:
+topo:52
+primeira opção:212 = 106
+segundo topo:52
+
+comprarMaquinas:
+L:61
+A:77
+2 frames
+
+VenderMaquinas:
+L:100
+A:159
+2 frames
+segunda opção:212 = 106
+
+comprarMenu:
+L:124 = 62
+A:96  = 48
+image
