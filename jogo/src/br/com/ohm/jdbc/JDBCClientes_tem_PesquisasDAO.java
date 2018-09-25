@@ -31,12 +31,23 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
             while(rs.next()){
                 clientes_tem_Pesquisas = new Clientes_tem_Pesquisas();
                 int clientes_id = rs.getInt("clientes_id");
-                int pesquisa_id = rs.getInt("pesquisa_id");
+                int pesquisas_id = rs.getInt("pesquisas_id");
+                String tempo = rs.getString("tempo");
+                String estado = rs.getString("estado");
+
+                clientes_tem_Pesquisas.setClientes_id(clientes_id);
+                clientes_tem_Pesquisas.setEstado(estado);
+                clientes_tem_Pesquisas.setPesquisas_id(pesquisas_id);
+                clientes_tem_Pesquisas.setTempo(tempo);
+
+                listaDePesquisasDoCliente.add(clientes_tem_Pesquisas);
+
             }
         } catch (SQLException e) {
             //TODO: handle exception
+            e.printStackTrace();
         }
-        return null;
+        return listaDePesquisasDoCliente;
     }
 
 }
