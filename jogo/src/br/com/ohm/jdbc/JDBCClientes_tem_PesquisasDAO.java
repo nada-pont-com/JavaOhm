@@ -61,6 +61,7 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
                 p.setInt(2, listaDePesquisas.get(i).getId());
                 p.setString(3, listaDePesquisas.get(i).getTempo());
                 p.setString(4, "n iniciada");
+                p.execute();
             }
         } catch (SQLException e) {
             e.printStackTrace();
