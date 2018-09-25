@@ -55,7 +55,13 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
     public List<Clientes_tem_Pesquisas> inserirPesquisas(String clienteId,List<Pesquisa> listaDePesquisas){
         String comando = "INSERT INTO clientes_tem_pesquisas (clientes_id,pesquisas_id,tempo,estado) VALUES (?,?,?,?)";
         try {
-            
+            for(int i = 0;i<listaDePesquisas.size();i++){
+                PreparedStatement p = this.conexao.prepareStatement(comando);
+                p.setString(1, clienteId);
+                p.setInt(2, listaDePesquisas.get(i).getId());
+                p.setString(3, listaDePesquisas.get(i).getTempo());
+                p.setString(4, "n iniciada");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             //TODO: handle exception
