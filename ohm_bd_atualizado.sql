@@ -240,8 +240,8 @@ CREATE TABLE IF NOT EXISTS `ohm_bd`.`clientes_tem_Pesquisas` (
   `pesquisas_id` INT UNSIGNED NOT NULL,
   `tempo` TIME NOT NULL,
   `estado` VARCHAR(10) NOT NULL COMMENT 'Armazena o estado da pesuisa se ele está finalizada, começada ou n iniciada',
-  PRIMARY KEY (`clientes_id`, `Pesquisa_id`),
-  INDEX `fk_clientes_has_Pesquisa_Pesquisa1_idx` (`Pesquisas_id` ASC),
+  PRIMARY KEY (`clientes_id`, `pesquisas_id`),
+  INDEX `fk_clientes_has_Pesquisa_Pesquisa1_idx` (`pesquisas_id` ASC),
   INDEX `fk_clientes_has_Pesquisa_clientes1_idx` (`clientes_id` ASC),
   CONSTRAINT `fk_clientes_has_Pesquisa_clientes1`
     FOREIGN KEY (`clientes_id`)
@@ -249,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `ohm_bd`.`clientes_tem_Pesquisas` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_clientes_has_Pesquisa_Pesquisa1`
-    FOREIGN KEY (`Pesquisas_id`)
+    FOREIGN KEY (`pesquisas_id`)
     REFERENCES `ohm_bd`.`Pesquisas` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
