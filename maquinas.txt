@@ -5,9 +5,4 @@
 -moinho de agua e vento melhorado = maquina 6 - 7 fase 4
 -carvão melhorado - maquina8
 -nuclear  = maquina9
-<<<<<<< HEAD
--
 
-
-=======
->>>>>>> b86a960b4ade2d0299166a50ade75ba6064f4fa2
