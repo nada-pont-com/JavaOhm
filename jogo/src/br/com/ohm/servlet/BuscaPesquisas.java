@@ -39,7 +39,7 @@ public class BuscaPesquisas extends HttpServlet {
 		String clienteId = request.getParameter("id");
 		List<Pesquisa> listaDePesquisas = new ArrayList<Pesquisa>();
 		List<Clientes_tem_Pesquisas> listaDePesquisasDoCliente = new ArrayList<Clientes_tem_Pesquisas>();
-		List<Object> listaDeObjetos = new ArrayList<Object>();
+		List<Object> Object = new ArrayList<Object>();
 		try {
 			Conexao conec = new Conexao();
 			Connection conexao = conec.abrirConexao();
@@ -47,12 +47,14 @@ public class BuscaPesquisas extends HttpServlet {
 			JDBCClientes_tem_PesquisasDAO jdbcClientes_tem_Pesquisas = new JDBCClientes_tem_PesquisasDAO(conexao);
 			listaDePesquisas =  jdbcPesquisas.buscaPesquisas(fase);
 			listaDePesquisasDoCliente = jdbcClientes_tem_Pesquisas.buscaPesquisasDosClientes(clienteId);
+			System.out.println(listaDePesquisasDoCliente.size()+"ola");
 			if(listaDePesquisasDoCliente.size()==0){
 				listaDePesquisasDoCliente = jdbcClientes_tem_Pesquisas.inserirPesquisas(clienteId,listaDePesquisas);
+			}else{
+				Object.add(listaDePesquisas);
+				Object.add(listaDePesquisasDoCliente);
 			}
-			listaDeObjetos.add(listaDePesquisas);
-			listaDeObjetos.add(listaDePesquisasDoCliente);
-			String json = new Gson().toJson(listaDeObjetos);
+			String json = new Gson().toJson(Object);
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(json);	
