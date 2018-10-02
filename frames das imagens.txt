@@ -162,8 +162,8 @@ sobre o menu icones
 -68.5
 
 pause:
-L:106
-A:73
+L:73
+A:106
 3 frames
 
 resetarJ:
