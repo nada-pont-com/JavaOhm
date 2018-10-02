@@ -172,8 +172,8 @@ A:106
 2 frames
 
 resetarF:
-L:189
-A:152
+L:116
+A:96
 2 frames
 
 Salvar:
