@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `ohm_bd`.`maquinas` (
   `valor` INT UNSIGNED NOT NULL COMMENT 'Armazena o valor/custo das máquinas.',
   `pps` INT UNSIGNED NOT NULL COMMENT 'Armazena a produção por segundo de energia da máquina.',
   `fase` TINYINT UNSIGNED ZEROFILL NOT NULL COMMENT 'Armazena a fase em que a máquina pode ser comprada/pode aparecer.',
+  `subFase` TINYINT UNSIGNED ZEROFILL COMMENT 'Armazena a fase em que a máquina pode ser comprada/pode aparecer.',
   `desc` TEXT NOT NULL COMMENT 'Armazena a descrição da máquina.',
   `nome` VARCHAR(45) NOT NULL COMMENT 'Armazena o nome da máquina',
   PRIMARY KEY (`id`))

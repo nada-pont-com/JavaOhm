@@ -201,3 +201,12 @@ comprarMenu:
 L:124 = 62
 A:96  = 48
 image
+
+maquina3:
+L:739
+A:1148
+
+
+eolica nv2:
+L:686
+A:907
