@@ -54,7 +54,7 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
     }
 
 
-    public List<Clientes_tem_Pesquisas> inserirPesquisas(String clienteId,List<Pesquisa> listaDePesquisas){
+    public boolean inserirPesquisas(String clienteId,List<Pesquisa> listaDePesquisas){
         String comando = "INSERT INTO clientes_tem_pesquisas (clientes_id,pesquisas_id,tempo,estado) VALUES (?,?,?,?)";
         try {
             for(int i = 0;i<listaDePesquisas.size();i++){
@@ -67,9 +67,9 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            //TODO: handle exception
+            return false;
         }
-        return null;
+        return true;
     }
 
 

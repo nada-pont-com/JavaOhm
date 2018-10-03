@@ -162,8 +162,8 @@ sobre o menu icones
 -68.5
 
 pause:
-L:106
-A:73
+L:73
+A:106
 3 frames
 
 resetarJ:
@@ -172,8 +172,8 @@ A:106
 2 frames
 
 resetarF:
-L:189
-A:152
+L:116
+A:96
 2 frames
 
 Salvar:
@@ -201,3 +201,12 @@ comprarMenu:
 L:124 = 62
 A:96  = 48
 image
+
+maquina3:
+L:739
+A:1148
+
+
+eolica nv2:
+L:686
+A:907
