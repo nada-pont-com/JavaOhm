@@ -63,4 +63,24 @@ public class JDBCClientes_tem_BateriasDAO implements Clientes_tem_BateriasDAO{
 		}
 		return true;
 	}
+
+	public boolean resetarBaterias(int id) {
+		try {
+			if(id > 0){
+
+				String comando = "DELETE FROM clientes_tem_baterias WHERE clientes_id = " + id;
+				PreparedStatement p = this.conexao.prepareStatement(comando);
+				p.executeQuery();
+				
+			}else{
+				return false;
+			}
+	}catch (SQLException e) {
+		e.printStackTrace();
+		return false;
+	}
+	 return true;
+		
+		
+	}
 }

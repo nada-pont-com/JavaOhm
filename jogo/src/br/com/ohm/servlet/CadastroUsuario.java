@@ -57,9 +57,9 @@ public class CadastroUsuario extends HttpServlet {
 			String validaEmail = jdbcUsuario.validaEmail(usuario.getEmail());
 			Map<String,String> msg = new HashMap<String,String>();
 			if(!validaEmail.equals("")) {
-				msg.put("msg", "Email j√° utilizado.");
+				msg.put("msg", "Email j· utilizado.");
 			}else if(usuario.getLogin().equals(usuariobd.getLogin())) {
-				msg.put("msg", "Login j√° utilizado.");
+				msg.put("msg", "Login j· utilizado.");
 			}else {
 				boolean retorno = jdbcUsuario.inserir(usuario);
 				if(retorno) {

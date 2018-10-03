@@ -52,13 +52,14 @@ public class CriarDenuncia extends HttpServlet {
 	    	
 	    	Map<String, String> msg = new HashMap<String, String>();
 	    	if(retorno) {
-		    		
+		    		msg.put("msg","Denuncia em viado com sucesso");
 	    	}else {
-	    		
+	    		msg.put("msg","Erro ao enviar denuncia");
 	    	}
 	    	conec.fecharConexao();
 	    	
 	    	String json = new Gson().toJson(msg);
+	    	System.out.println(json);
 	    	response.setContentType("application/json");
 	    	response.setCharacterEncoding("UTF-8");
 	    	response.getWriter().write(json);

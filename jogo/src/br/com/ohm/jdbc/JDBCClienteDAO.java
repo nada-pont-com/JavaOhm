@@ -143,4 +143,25 @@ public class JDBCClienteDAO implements ClienteDAO{
 		return true;
 	}
 
+	public boolean resetarCliente(String login){
+		int cont = 0;
+		Cliente cliente = null;
+		try {
+			cont++;
+			if(login != null){
+
+				String comando = "UPDATE clientes SET dinheiro = 0, maior_pontuacao = 0, dinheiro_geral = 0, energia = 0, fase = 1, franklin = 0, franklin_geral = 0 WHERE usuarios_login =" + login;
+				PreparedStatement p = this.conexao.prepareStatement(comando);
+				ResultSet rs = p.executeQuery();
+				
+			}else{
+				return false;
+			}
+	}catch (SQLException e) {
+		e.printStackTrace();
+		return false;
+	}
+	 return true;
+	}
+	
 }
