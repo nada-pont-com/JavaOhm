@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `ohm_bd`.`maquinas` (
   `valor` INT UNSIGNED NOT NULL COMMENT 'Armazena o valor/custo das máquinas.',
   `pps` INT UNSIGNED NOT NULL COMMENT 'Armazena a produção por segundo de energia da máquina.',
   `fase` TINYINT UNSIGNED ZEROFILL NOT NULL COMMENT 'Armazena a fase em que a máquina pode ser comprada/pode aparecer.',
+  `subFase` TINYINT UNSIGNED ZEROFILL COMMENT 'Armazena a fase em que a máquina pode ser comprada/pode aparecer.',
   `desc` TEXT NOT NULL COMMENT 'Armazena a descrição da máquina.',
   `nome` VARCHAR(45) NOT NULL COMMENT 'Armazena o nome da máquina',
   PRIMARY KEY (`id`))
@@ -90,11 +91,15 @@ ENGINE = InnoDB
 COMMENT = 'A tabela \"maquinas\" armazena os dados referentes as máquinas presentes no jogo, como o valor de sua compra, produção por segundo, a fase onde são encontradas e a descrição delas.';
 
 
-
-INSERT INTO `maquinas` (`id`, `valor`, `pps`, `fase`, `desc`, `nome`) VALUES
-(001, 0, 1, 010, 'Manivela que ao ser girada gera energia.', 'manivela'),
-(002, 10, 1, 001, 'Manivela automática que ao girar automaticamente e gera energia.', 'manivela automática');
-
+INSERT INTO `maquinas` (`id`, `valor`, `pps`, `fase`, `subFase`, `desc`, `nome`) VALUES
+(001, 0, 1, 010, NULL, 'Manivela que ao ser girada gera energia.', 'manivela'),
+(002, 10, 1, 001, NULL, 'Manivela automática que ao girar automaticamente e gera energia.', 'manivela automática'),
+(003, 1000, 5, 002, 003, 'Um moinho de vento que produz energia através do vento.', 'Moinho de vento'),
+(004, 2500, 10, 002, 003, 'Moinho de água que produz  energia através de correnteza da água.', 'Moinho de agua'),
+(005, 8000, 25, 003, NULL, 'Uma maquina a vapor que gera energia através da queima do carvão que gera vapor.', 'Maquina a vapor'),
+(006, 17500, 32, 004, 005, 'Uma usina que gera energia através da água.', 'Usina Hidrelétrica'),
+(007, 300000, 40, 004, 005, 'Uma maquina que gera energia através das forças do vento.', 'Aerogeradores'),
+(008, 47500, 70, 004, 005, '', 'Maquina a vapor v2');
 
 -- -----------------------------------------------------
 -- Table `ohm_bd`.`fases`
@@ -239,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `ohm_bd`.`clientes_tem_Pesquisas` (
   `clientes_id` INT UNSIGNED ZEROFILL NOT NULL,
   `pesquisas_id` INT UNSIGNED NOT NULL,
   `tempo` TIME NOT NULL,
-  `estado` VARCHAR(10) NOT NULL COMMENT 'Armazena o estado da pesuisa se ele está finalizada, começada ou n iniciada',
+  `estado` VARCHAR(10) NOT NULL COMMENT 'Armazena o estado da pesuisa se ele está finalizada, iniciada ou n iniciada',
   PRIMARY KEY (`clientes_id`, `pesquisas_id`),
   INDEX `fk_clientes_has_Pesquisa_Pesquisa1_idx` (`pesquisas_id` ASC),
   INDEX `fk_clientes_has_Pesquisa_clientes1_idx` (`clientes_id` ASC),
@@ -255,6 +260,8 @@ CREATE TABLE IF NOT EXISTS `ohm_bd`.`clientes_tem_Pesquisas` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+INSERT INTO `clientes_tem_pesquisas` (`clientes_id`, `pesquisas_id`, `tempo`, `estado`) VALUES
+(0000000012, 1, '00:10:00', 'n iniciada');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

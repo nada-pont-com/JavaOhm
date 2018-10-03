@@ -1,8 +1,12 @@
 -moino de v = maquina3 fase 2
 -moinho de agua = maquina4 fase 2
--moinho de agua e vento repet na fase 3
+-moinho de agua e vento repet na fase 3()
 -carvão  = maquina 5 fase 3
 -moinho de agua e vento melhorado = maquina 6 - 7 fase 4
--carvão melhorado - maquina8
+-carvão melhorado - fase 4 maquina8
 -nuclear  = maquina9
+<<<<<<< HEAD
+=======
+- 
+>>>>>>> master
 

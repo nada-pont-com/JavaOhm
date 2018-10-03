@@ -42,7 +42,7 @@ public class BuscaBaterias extends HttpServlet {
 		String clienteId = request.getParameter("id");
 		List<Bateria> listaDeBaterias = new ArrayList<Bateria>();
 		List<Clientes_tem_Baterias> listaDeClientesTemBaterias = new ArrayList<Clientes_tem_Baterias>();
-		List<Object> Objeto = new ArrayList<Object>();
+		List<Object> Object = new ArrayList<Object>();
 		try {
 			
 		Conexao conec = new Conexao();
@@ -58,18 +58,18 @@ public class BuscaBaterias extends HttpServlet {
 			boolean retorno = jdbcClientes_tem_Baterias.inserirBateriasRespectivasDaFaseDoJogador(clienteId, listaDeBaterias);
 			if(retorno) {
 				listaDeClientesTemBaterias = jdbcClientes_tem_Baterias.clientesProcuramBaterias(clienteId);
-				Objeto.add(listaDeClientesTemBaterias);
-				Objeto.add(listaDeBaterias);
-				json = new Gson().toJson(Objeto);
+				Object.add(listaDeClientesTemBaterias);
+				Object.add(listaDeBaterias);
+				json = new Gson().toJson(Object);
 			}else {
 				Map<String, String> msg = new HashMap<String,String>();
 				msg.put("msg", "Erro ao carregar baterias");
 				json = new Gson().toJson(msg);
 			}
 		}else {
-			Objeto.add(listaDeClientesTemBaterias);
-			Objeto.add(listaDeBaterias);
-			json = new Gson().toJson(Objeto);
+			Object.add(listaDeClientesTemBaterias);
+			Object.add(listaDeBaterias);
+			json = new Gson().toJson(Object);
 		}
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
