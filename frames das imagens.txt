@@ -167,8 +167,8 @@ A:106
 3 frames
 
 resetarJ:
-L:143
-A:106
+L:107
+A:109
 2 frames
 
 resetarF:

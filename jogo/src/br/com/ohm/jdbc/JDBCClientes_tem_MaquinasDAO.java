@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.ohm.classes.Cliente;
 import br.com.ohm.classes.Clientes_tem_Maquinas;
 import br.com.ohm.classes.Maquina;
 import br.com.ohm.jdbcinterface.Clientes_tem_MaquinasDAO;
@@ -91,21 +90,15 @@ public class JDBCClientes_tem_MaquinasDAO implements Clientes_tem_MaquinasDAO{
 
 	public boolean resetarMaquinas(int id) {
 		try {
-			if(id > 0){
-
-				String comando = "DELETE FROM clientes_tem_maquinas WHERE clientes_id = " + id;
-				PreparedStatement p = this.conexao.prepareStatement(comando);
-				p.executeQuery();
-				
-			}else{
-				return false;
-			}
-	}catch (SQLException e) {
-		e.printStackTrace();
-		return false;
-	}
-	 return true;
-		
+			String comando = "DELETE FROM clientes_tem_maquinas WHERE clientes_id = ?";
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			p.setInt(1, id);
+			p.execute();
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;		
 	}
 	
 }
