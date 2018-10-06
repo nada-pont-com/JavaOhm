@@ -31,14 +31,16 @@ public class JDBCPesquisasDAO implements PesquisasDAO{
 				int id = rs.getInt("id");
 				int fasebd= rs.getInt("fase");
 				int valor = rs.getInt("valor");
+				int mudaFase = rs.getInt("mudaFase");
 				String pesquisa = rs.getString("pesquisa");
 				String tempo = rs.getString("tempo");
 				
 				pesquisas.setId(id);
 				pesquisas.setFase(fasebd);
+				pesquisas.setValor(valor);
+				pesquisas.setMudaFase(mudaFase);
 				pesquisas.setPesquisa(pesquisa);
 				pesquisas.setTempo(tempo);
-				pesquisas.setValor(valor);
 				
 				listaDePesquisas.add(pesquisas);
 			}

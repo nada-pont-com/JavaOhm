@@ -50,7 +50,7 @@ L:224
 A:340
 3 frames
 
-carvão 2-1:
+carvão 2-1 = maquina5:
 L:210
 A:353
 3 frames
@@ -65,7 +65,7 @@ L:291
 A:346
 3 frames
 
-carvão 3-2:
+carvão 3-2 = maquina8:
 L:281
 A:339
 3 frames
@@ -210,3 +210,7 @@ A:1148
 eolica nv2:
 L:686
 A:907
+
+moinho de agua = maquina4
+L:1394
+A:952

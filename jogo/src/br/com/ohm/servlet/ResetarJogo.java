@@ -38,9 +38,7 @@ public class ResetarJogo extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    private void process(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException  {
-    	int id = 0;
+    private void process(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException  {
     	
     	List<Cliente> cliente = new ArrayList<Cliente>();
 		HttpSession sessao = request.getSession();
