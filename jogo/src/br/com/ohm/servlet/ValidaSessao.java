@@ -34,23 +34,22 @@ public class ValidaSessao extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
     	// TODO Auto-generated method stub
     	try {
+			HttpSession sessao = request.getSession();
+			if(request.getParameter("p").equals(sessao.getAttribute("permissao"))) {
+				System.out.println("ok");
+			Conexao conec = new Conexao();
+			Connection conexao = conec.abrirConexao();
+			JDBCUsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
+			Usuario usuario = jdbcUsuario.buscaLogin(sessao.getAttribute("login").toString());
 			
-    	HttpSession sessao = request.getSession();
-    	if(request.getParameter("p").equals(sessao.getAttribute("permissao"))) {
-    		System.out.println("ok");
-    	Conexao conec = new Conexao();
-    	Connection conexao = conec.abrirConexao();
-    	JDBCUsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
-    	Usuario usuario = jdbcUsuario.buscaLogin(sessao.getAttribute("login").toString());
-    	
-    	conec.fecharConexao();
-    	String json = new Gson().toJson(usuario);
-    	response.setContentType("application/json");
-    	response.setCharacterEncoding("UTF-8");
-    	response.getWriter().write(json);
-    	}else {
-    		System.out.println("Erro "+request.getParameter("p")+" sessao:"+sessao.getAttribute("permissao"));
-    	}
+			conec.fecharConexao();
+			String json = new Gson().toJson(usuario);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(json);
+			}else {
+				System.out.println("Erro "+request.getParameter("p")+" sessao:"+sessao.getAttribute("permissao"));
+			}
     	} catch (IOException e) {
     		e.printStackTrace();
     	}
