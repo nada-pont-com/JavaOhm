@@ -51,8 +51,11 @@ public class BuscaMaquinas extends HttpServlet {
 			JDBCMaquinasDAO jdbcMaquinas = new JDBCMaquinasDAO(conexao);
 			maquinas = jdbcMaquinas.buscaMaquinas(fase);
 			JDBCClientes_tem_MaquinasDAO jdbcClientes_tem_Maquinas = new JDBCClientes_tem_MaquinasDAO(conexao);
-			if((fase1-1)!=0) {
-				//remover maquinas da fase anterior
+			for(int i = 1;i<maquinas.size();i++){
+				if(((fase1-1)!=0)&& (maquinas.get(i).getFase()!=fase1)&&(maquinas.get(i).getSubFase()!=fase1)) {
+					//remover maquinas da fase anterior
+					jdbcClientes_tem_Maquinas.deletarMaquinas(maquinas.get(i).getId(), clienteId);
+				}
 			}
 			clientes_tem_maquinas = jdbcClientes_tem_Maquinas.clientesProcuramMaquinas(clienteId);				
 			String json = "";

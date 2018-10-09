@@ -5,6 +5,7 @@ public class Pesquisa {
 	private int id;
 	private int valor;
 	private int fase;
+	private int mudaFase;
 	private String tempo;
 	private String pesquisa;
 	
@@ -32,6 +33,14 @@ public class Pesquisa {
 		return this.fase;
 	}
 	
+	public void setMudaFase(int mudaFase) {
+		this.mudaFase = mudaFase;
+	}
+	
+	public int getMudaFase() {
+		return this.mudaFase;
+	}
+
 	public void setTempo(String tempo) {
 		this.tempo = tempo;
 	}

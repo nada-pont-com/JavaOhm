@@ -1,0 +1,3 @@
+((dinheiroGeral*fase)+franklin_geral)-tempo(segundos)/1000
+comando para buscar rank;
+SELECT * FROM `clientes` ORDER BY maior_pontuacao DESC, usuarios_login asc

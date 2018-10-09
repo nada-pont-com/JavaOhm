@@ -202,12 +202,13 @@ CREATE TABLE IF NOT EXISTS `ohm_bd`.`Pesquisas` (
   `tempo` TIME NOT NULL COMMENT 'Tempo que a pesquisa demora para ficar pronta.',
   `valor` INT UNSIGNED NOT NULL COMMENT 'Valor da pesquisa em energia.',
   `fase` SMALLINT UNSIGNED NOT NULL COMMENT 'fase que a pesquisa esta disponível.',
+  `mudaFase` SMALLINT UNSIGNED COMMENT 'informa se a pesquisa muda de fase ou não: null não muda \n 1 muda',
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
-INSERT INTO `pesquisas` (`id`, `pesquisa`, `tempo`, `valor`, `fase`) VALUES
-(1, 'Moinho de vento', '00:10:00', 10000, 1);
+INSERT INTO `pesquisas` (`id`, `pesquisa`, `tempo`, `valor`, `fase`,`mudaFase`) VALUES
+(1, 'Moinho de vento', '00:10:00', 10000, 1,1);
 
 
 -- -----------------------------------------------------

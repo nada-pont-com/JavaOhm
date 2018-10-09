@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.ohm.classes.Cliente;
 import br.com.ohm.classes.Clientes_tem_Maquinas;
 import br.com.ohm.classes.Maquina;
 import br.com.ohm.jdbcinterface.Clientes_tem_MaquinasDAO;
@@ -55,12 +54,12 @@ public class JDBCClientes_tem_MaquinasDAO implements Clientes_tem_MaquinasDAO{
 			String comando = "INSERT INTO clientes_tem_maquinas (clientes_id,maquinas_id,multiplicador,quantidade) VALUES(?,?,?,?)";
 			for(int i = 0;i<maquinas.size();i++) {
 				if(maquinas.get(i).getId()!=1) {
-				PreparedStatement p = conexao.prepareStatement(comando);
-				p.setString(1, clienteId);
-				p.setInt(2,maquinas.get(i).getId());
-				p.setInt(3, 1);
-				p.setInt(4, 0);
-				p.execute();
+					PreparedStatement p = conexao.prepareStatement(comando);
+					p.setString(1, clienteId);
+					p.setInt(2,maquinas.get(i).getId());
+					p.setInt(3, 1);
+					p.setInt(4, 0);
+					p.execute();
 				}
 			}
 		} catch (SQLException e) {
@@ -89,23 +88,48 @@ public class JDBCClientes_tem_MaquinasDAO implements Clientes_tem_MaquinasDAO{
 		return true;
 	}
 
+	public boolean deletarMaquinas(int maquinasId,String clientesId){
+		String comando = "DELETE FROM clientes_tem_maquinas WHERE maquinas_id=? AND clientes_id = ?";
+		try {
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			p.setInt(1, maquinasId);
+			p.setString(2, clientesId);
+			p.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public boolean salvarMaquinas(List<Clientes_tem_Maquinas> listaDeMaquinasDoCliente,String clienteId){
+		String comando = "UPDATE clientes_tem_maquinas SET quantidade=?, multiplicador=? WHERE maquinas_id=? AND clientes_id=?";
+		try {
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			for (int i = 0; i < listaDeMaquinasDoCliente.size(); i++) {
+				p.setInt(1, listaDeMaquinasDoCliente.get(i).getQuantidade());
+				p.setInt(2, listaDeMaquinasDoCliente.get(i).getMultiplicador());
+				p.setInt(3, listaDeMaquinasDoCliente.get(i).getMaquinas_id());
+				p.setString(4, clienteId);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
 	public boolean resetarMaquinas(int id) {
 		try {
-			if(id > 0){
-
-				String comando = "DELETE FROM clientes_tem_maquinas WHERE clientes_id = " + id;
-				PreparedStatement p = this.conexao.prepareStatement(comando);
-				p.executeQuery();
-				
-			}else{
-				return false;
-			}
-	}catch (SQLException e) {
-		e.printStackTrace();
-		return false;
-	}
-	 return true;
-		
+			String comando = "DELETE FROM clientes_tem_maquinas WHERE clientes_id = ? AND maquinas_id!=1";
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			p.setInt(1, id);
+			p.execute();
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;		
 	}
 	
 }

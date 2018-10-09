@@ -64,23 +64,32 @@ public class JDBCClientes_tem_BateriasDAO implements Clientes_tem_BateriasDAO{
 		return true;
 	}
 
+	public boolean salvarBaterias(List<Clientes_tem_Baterias> listaDeBateriasDoCliente,String clienteId){
+		String comando = "UPDATE clientes_tem_pesquisas SET quantidade=? WHERE pesquisas_id=? AND clientes_id=?";
+		try {
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			for (int i = 0; i < listaDeBateriasDoCliente.size(); i++){
+				p.setInt(1, listaDeBateriasDoCliente.get(i).getQuantidade());
+				p.setInt(2, listaDeBateriasDoCliente.get(i).getBateriasId());
+				p.setString(3, clienteId);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
 	public boolean resetarBaterias(int id) {
 		try {
-			if(id > 0){
-
-				String comando = "DELETE FROM clientes_tem_baterias WHERE clientes_id = " + id;
-				PreparedStatement p = this.conexao.prepareStatement(comando);
-				p.executeQuery();
-				
-			}else{
-				return false;
-			}
-	}catch (SQLException e) {
-		e.printStackTrace();
-		return false;
-	}
-	 return true;
-		
-		
+			String comando = "DELETE FROM clientes_tem_baterias WHERE clientes_id = ?";
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			p.setInt(1, id);
+			p.execute();
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }

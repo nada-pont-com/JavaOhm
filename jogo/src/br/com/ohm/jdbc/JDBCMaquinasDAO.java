@@ -35,12 +35,14 @@ public class JDBCMaquinasDAO implements MaquinasDAO{
 				int valor = rs.getInt("valor");
 				int id = rs.getInt("id");
 				int fasebd = rs.getInt("fase");
+				int subFase = rs.getInt("subFase");
 				int pps  = rs.getInt("pps");
 				
 				maquina.setId(id);
 				maquina.setValor(valor);
 				maquina.setPps(pps);
 				maquina.setFase(fasebd);
+				maquina.setSubFase(subFase);
 				maquina.setNome(nome);
 				maquina.setDesc(desc);
 				
