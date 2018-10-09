@@ -23,7 +23,7 @@ public class JDBCClientes_tem_MaquinasDAO implements Clientes_tem_MaquinasDAO{
 		List<Clientes_tem_Maquinas> listaDeClientesTemMaquinas = new ArrayList<Clientes_tem_Maquinas>();
 		Clientes_tem_Maquinas maquinas = null;
 		try {
-			String comando = "SELECT * FROM clientes_tem_maquinas WHERE clientes_id=?";
+			String comando = "SELECT * FROM clientes_tem_maquinas WHERE clientes_id=? ORDER BY maquinas_id ASC";
 			PreparedStatement p = conexao.prepareStatement(comando);
 			p.setString(1, id);
 			ResultSet rs = p.executeQuery();
@@ -105,12 +105,14 @@ public class JDBCClientes_tem_MaquinasDAO implements Clientes_tem_MaquinasDAO{
 	public boolean salvarMaquinas(List<Clientes_tem_Maquinas> listaDeMaquinasDoCliente,String clienteId){
 		String comando = "UPDATE clientes_tem_maquinas SET quantidade=?, multiplicador=? WHERE maquinas_id=? AND clientes_id=?";
 		try {
+			
 			PreparedStatement p = this.conexao.prepareStatement(comando);
 			for (int i = 0; i < listaDeMaquinasDoCliente.size(); i++) {
 				p.setInt(1, listaDeMaquinasDoCliente.get(i).getQuantidade());
 				p.setInt(2, listaDeMaquinasDoCliente.get(i).getMultiplicador());
 				p.setInt(3, listaDeMaquinasDoCliente.get(i).getMaquinas_id());
 				p.setString(4, clienteId);
+				p.executeUpdate();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

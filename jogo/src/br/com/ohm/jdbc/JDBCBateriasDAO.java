@@ -22,7 +22,7 @@ public class JDBCBateriasDAO implements BateriasDAO{
 		Bateria bateria = null;
 		List<Bateria> listadeBaterias = new ArrayList<Bateria>();
 		try {
-			String comando ="SELECT * FROM baterias WHERE fase=?";
+			String comando ="SELECT * FROM baterias WHERE fase=? ORDER BY id ASC";
 			PreparedStatement p = conexao.prepareStatement(comando);
 			p.setString(1, fase);
 			ResultSet rs = p.executeQuery();
@@ -50,5 +50,39 @@ public class JDBCBateriasDAO implements BateriasDAO{
 		}
 		return listadeBaterias;
 	}
+
+	public List<Bateria> BuscaBateriasPorId(int id){
+		Bateria bateria = null;
+		List<Bateria> listadeBaterias = new ArrayList<Bateria>();
+		try {
+			String comando ="SELECT * FROM baterias WHERE id=?";
+			PreparedStatement p = conexao.prepareStatement(comando);
+			p.setInt(1, id);
+			ResultSet rs = p.executeQuery();
+			while(rs.next()) {
+				bateria = new Bateria();
+				int fasebd = rs.getInt("fase");
+				int idbd = rs.getInt("id");
+				int armazenamento = rs.getInt("armazenamento");
+				String nome = rs.getString("nome");
+				String desc = rs.getString("desc");
+				int valor = rs.getInt("valor");
+				
+				bateria.setArmazenamento(armazenamento);
+				bateria.setDesc(desc);
+				bateria.setId(idbd);
+				bateria.setNome(nome);
+				bateria.setFase(fasebd);
+				bateria.setValor(valor);
+				
+				listadeBaterias.add(bateria);
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return listadeBaterias;
+	}
+
 
 }

@@ -19,7 +19,6 @@ public class JDBCClienteDAO implements ClienteDAO{
 	}
 	
 	public List<Cliente> buscaDadosClientes(String referencia) {
-		System.out.println(referencia);
 		int cont = 0;
 		List<Cliente> clientes = new ArrayList<Cliente>();
 		Cliente cliente = null;
@@ -44,7 +43,7 @@ public class JDBCClienteDAO implements ClienteDAO{
 					cliente.setFranklinGeral(rs.getInt("franklin_geral"));
 					cliente.setId(rs.getInt("id"));
 					cliente.setTempo(rs.getString("tempo_jogo"));
-					System.out.println("login: "+cliente.getLogin()+"tempo: "+cliente.getTempo()+"id "+cliente.getId()+" posi "+cliente.getPosicao());
+					// System.out.println("login: "+cliente.getLogin()+"tempo: "+cliente.getTempo()+"id "+cliente.getId()+" posi "+cliente.getPosicao());
 					clientes.add(cliente);
 				}
 			}else{
@@ -131,7 +130,6 @@ public class JDBCClienteDAO implements ClienteDAO{
 			p.setInt(9, 1);
 			p.setString(10, login);
 			p.setInt(11, 10);
-			System.out.println(p);
 			p.execute();
 			
 		} catch (SQLException e) {
@@ -142,10 +140,30 @@ public class JDBCClienteDAO implements ClienteDAO{
 		
 		return true;
 	}
+	public boolean salvarCliente(Cliente cliente){
+		String comando = "UPDATE clientes SET dinheiro = ?, maior_pontuacao = ?, dinheiro_geral = ?, energia = ?, fase = ?, franklin = ?, franklin_geral = ?, tempo_jogo = ? WHERE usuarios_login = ?";
+		try {
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			p.setInt(1, cliente.getDinheiro());
+			p.setInt(2, cliente.getMaiorPontuacao());
+			p.setInt(3, cliente.getDinheiroGeral());
+			p.setInt(4, cliente.getEnergia());
+			p.setInt(5, cliente.getFase());
+			p.setInt(6, cliente.getFranklin());
+			p.setInt(7, cliente.getFranklinGeral());
+			p.setString(8, cliente.getTempo());
+			p.setString(9, cliente.getLogin());
+			p.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 
 	public boolean resetarCliente(String login){
 		try {
-			String comando = "UPDATE clientes SET dinheiro = 10, maior_pontuacao = 10, dinheiro_geral = 10, energia = 0, fase = 1, franklin = 0, franklin_geral = 0 WHERE usuarios_login = ?";
+			String comando = "UPDATE clientes SET dinheiro = 10, maior_pontuacao = 10, dinheiro_geral = 10, energia = 0, fase = 1, franklin = 0, franklin_geral= 0, tempo_jogo = '2000-01-01 0:0:0'  WHERE usuarios_login = ?";
 			PreparedStatement p = this.conexao.prepareStatement(comando);
 			p.setString(1, login);
 			p.executeUpdate();

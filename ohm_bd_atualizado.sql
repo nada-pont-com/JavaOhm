@@ -154,7 +154,7 @@ INSERT INTO `clientes_tem_maquinas` (`clientes_id`, `maquinas_id`, `multiplicado
 -- -----------------------------------------------------
 -- Table `ohm_bd`.`Baterias`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ohm_bd`.`Baterias` (
+CREATE TABLE IF NOT EXISTS `ohm_bd`.`baterias` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `armazenamento` INT UNSIGNED NOT NULL,
@@ -216,18 +216,18 @@ INSERT INTO `pesquisas` (`id`, `pesquisa`, `tempo`, `valor`, `fase`,`mudaFase`) 
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ohm_bd`.`clientes_tem_baterias` (
   `clientes_id` INT UNSIGNED ZEROFILL NOT NULL,
-  `Baterias_id` INT UNSIGNED NOT NULL,
+  `baterias_id` INT UNSIGNED NOT NULL,
   `quantidade` SMALLINT UNSIGNED NOT NULL COMMENT 'Armazena a quantidade determinadas de baterias que o jogador possui.',
-  PRIMARY KEY (`clientes_id`, `Baterias_id`),
-  INDEX `fk_clientes_has_Baterias_Baterias1_idx` (`Baterias_id` ASC),
-  INDEX `fk_clientes_has_Baterias_clientes1_idx` (`clientes_id` ASC),
+  PRIMARY KEY (`clientes_id`, `baterias_id`),
+  INDEX `fk_clientes_has_baterias_baterias1_idx` (`baterias_id` ASC),
+  INDEX `fk_clientes_has_baterias_clientes1_idx` (`clientes_id` ASC),
   CONSTRAINT `fk_clientes_has_Baterias_clientes1`
     FOREIGN KEY (`clientes_id`)
     REFERENCES `ohm_bd`.`clientes` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_clientes_has_Baterias_Baterias1`
-    FOREIGN KEY (`Baterias_id`)
+  CONSTRAINT `fk_clientes_has_baterias_baterias1`
+    FOREIGN KEY (`baterias_id`)
     REFERENCES `ohm_bd`.`baterias` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -235,7 +235,7 @@ ENGINE = InnoDB;
 
 
 
-INSERT INTO `clientes_tem_baterias` (`clientes_id`, `Baterias_id`, `quantidade`) VALUES
+INSERT INTO `clientes_tem_baterias` (`clientes_id`, `baterias_id`, `quantidade`) VALUES
 (0000000012, 1, 1);
 
 -- -----------------------------------------------------

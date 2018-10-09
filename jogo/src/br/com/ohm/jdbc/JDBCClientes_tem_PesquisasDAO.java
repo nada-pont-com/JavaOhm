@@ -68,7 +68,6 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
         }
         return true;
     }
-
     public boolean salvarPesquisas(List<Clientes_tem_Pesquisas> listaDePesquisasDoCliente,String clienteId){
         String comando = "UPDATE clientes_tem_pesquisas SET estado=?, tempo=? WHERE pesquisas_id=? AND clientes_id=?";
 		try {
@@ -77,7 +76,8 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
 				p.setString(1, listaDePesquisasDoCliente.get(i).getEstado());
 				p.setString(2, listaDePesquisasDoCliente.get(i).getTempo());
 				p.setInt(3, listaDePesquisasDoCliente.get(i).getPesquisas_id());
-				p.setString(4, clienteId);
+                p.setString(4, clienteId);
+                p.executeUpdate();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

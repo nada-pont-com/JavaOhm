@@ -38,11 +38,13 @@ public class Maquina implements Serializable{
 		return this.fase;
 	}
 	
-	public void setSubFase(int subFase) {
+
+	
+	public void setSubFase(int subFase) { 
 		this.subFase = subFase;
 	}
 	
-	public int getSubFase() {
+	public int getSubFase() { 
 		return this.subFase;
 	}
 	

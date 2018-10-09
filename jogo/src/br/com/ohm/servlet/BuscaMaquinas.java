@@ -40,8 +40,6 @@ public class BuscaMaquinas extends HttpServlet {
 		String fase = request.getParameter("fase");
 		String clienteId = request.getParameter("id");
 		int fase1 = Integer.parseInt(fase);
-		System.out.println(fase);
-		System.out.println(clienteId);
 		List<Maquina> maquinas = new ArrayList<Maquina>();
 		List<Clientes_tem_Maquinas> clientes_tem_maquinas = new ArrayList<Clientes_tem_Maquinas>();
 		List<Object> Object = new ArrayList<Object>();
@@ -51,16 +49,20 @@ public class BuscaMaquinas extends HttpServlet {
 			JDBCMaquinasDAO jdbcMaquinas = new JDBCMaquinasDAO(conexao);
 			maquinas = jdbcMaquinas.buscaMaquinas(fase);
 			JDBCClientes_tem_MaquinasDAO jdbcClientes_tem_Maquinas = new JDBCClientes_tem_MaquinasDAO(conexao);
-			for(int i = 1;i<maquinas.size();i++){
-				if(((fase1-1)!=0)&& (maquinas.get(i).getFase()!=fase1)&&(maquinas.get(i).getSubFase()!=fase1)) {
+			clientes_tem_maquinas = jdbcClientes_tem_Maquinas.clientesProcuramMaquinas(clienteId);				
+			List<Maquina> maquinas2 = null;
+			
+			for(int i = 1;i<clientes_tem_maquinas.size();i++){
+				maquinas2 = new ArrayList<Maquina>();
+				maquinas2 = jdbcMaquinas.buscaMaquinasPorId(clientes_tem_maquinas.get(i).getMaquinas_id());
+				if((maquinas2.get(0).getFase()!=fase1) && (maquinas2.get(0).getSubFase()!=fase1)) {
 					//remover maquinas da fase anterior
-					jdbcClientes_tem_Maquinas.deletarMaquinas(maquinas.get(i).getId(), clienteId);
+					jdbcClientes_tem_Maquinas.deletarMaquinas(maquinas2.get(0).getId(), clienteId);
 				}
 			}
-			clientes_tem_maquinas = jdbcClientes_tem_Maquinas.clientesProcuramMaquinas(clienteId);				
+			clientes_tem_maquinas = jdbcClientes_tem_Maquinas.clientesProcuramMaquinas(clienteId);
 			String json = "";
-			System.out.println();
-			if(clientes_tem_maquinas.size()==1) {				
+			if(clientes_tem_maquinas.size()==1) {
 				boolean retorno= jdbcClientes_tem_Maquinas.inserirMaquinasRespectivasFaseDoJogador(clienteId, maquinas);
 				if(retorno) {
 					clientes_tem_maquinas = jdbcClientes_tem_Maquinas.clientesProcuramMaquinas(clienteId);
@@ -78,7 +80,6 @@ public class BuscaMaquinas extends HttpServlet {
 				json = new Gson().toJson(Object);
 			}
 			conec.fecharConexao();
-			System.out.println(json+" ola");
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(json);

@@ -73,6 +73,7 @@ public class SalvarJogo extends HttpServlet {
 
 						listadeMaquinasDoCliente.add(clientes_tem_Maquinas);
 					}
+
 					retorno = jdbcClientes_tem_Maquinas.salvarMaquinas(listadeMaquinasDoCliente,clienteId);
 					if(retorno){
 						msg.put("msg", "Maquinas salvas com sucesso");
@@ -93,7 +94,6 @@ public class SalvarJogo extends HttpServlet {
 
 						listadePesquisasDoCliente.add(clientes_tem_Pesquisas);
 					}
-
 					retorno = jdbcClientes_tem_Pesquisas.salvarPesquisas(listadePesquisasDoCliente,clienteId);
 					if(retorno){
 						msg.put("msg", "Pesquisas salvas com sucesso");
@@ -106,6 +106,7 @@ public class SalvarJogo extends HttpServlet {
 					JDBCClientes_tem_BateriasDAO jdbcClientes_tem_Baterias = new JDBCClientes_tem_BateriasDAO(conexao);
 					Clientes_tem_Baterias clientes_tem_Baterias = null;
 					listadeBaterias = jdbcBaterias.BuscaBaterias(fase);
+					System.out.println("listB"+listadeBaterias.size());
 					for(int i = 0;i<listadeBaterias.size();i++){
 						clientes_tem_Baterias = new Clientes_tem_Baterias();
 						clientes_tem_Baterias.setBateriasId(Integer.parseInt(request.getParameter("id"+i)));
@@ -119,16 +120,17 @@ public class SalvarJogo extends HttpServlet {
 					}
 				break;
 				case "cliente":
+					cliente.setLogin(sessao.getAttribute("login").toString());
 					cliente.setDinheiro(Integer.parseInt(request.getParameter("dinheiro")));
 					cliente.setDinheiroGeral(Integer.parseInt(request.getParameter("dinheiroGeral")));
 					cliente.setEnergia(Integer.parseInt(request.getParameter("energia")));
 					cliente.setFase(Integer.parseInt(request.getParameter("fase")));
-					// cliente.setTempo(request.getParameter("tempo"));
-					System.out.println(request.getParameter("tempo.hora"));
+					cliente.setMaiorPontuacao(Integer.parseInt(request.getParameter("maiorPontuacao")));
+					cliente.setTempo(request.getParameter("tempo"));
 					cliente.setFranklin(Integer.parseInt(request.getParameter("franklin")));
 					cliente.setFranklinGeral(Integer.parseInt(request.getParameter("franklinGeral")));
 
-					//jdbcCliente.SalvarCliente();
+					jdbcCliente.salvarCliente(cliente);
 				break;
 			}
 		}else{

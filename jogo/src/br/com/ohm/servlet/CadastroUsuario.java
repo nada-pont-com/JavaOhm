@@ -47,7 +47,7 @@ public class CadastroUsuario extends HttpServlet {
 			usuario.setPermissao(request.getParameter("txtpermissao"));
 			usuario.setNascimento(request.getParameter("txtnascimento"));
 			usuario.setPermissao(usuario.verificaPermissao(request.getParameter("adm")));
-			System.out.println(" "+usuario.getLogin()+" "+usuario.getNome()+" "+usuario.getNascimento()+" "+usuario.getPermissao()+" "+usuario.getSenha());
+			System.out.println("login "+usuario.getLogin()+" nome "+usuario.getNome()+" nasci "+usuario.getNascimento()+" perm "+usuario.getPermissao()+" senha "+usuario.getSenha());
 			Conexao conec = new Conexao();
 			Connection conexao = conec.abrirConexao();
 			JDBCUsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
@@ -57,9 +57,9 @@ public class CadastroUsuario extends HttpServlet {
 			String validaEmail = jdbcUsuario.validaEmail(usuario.getEmail());
 			Map<String,String> msg = new HashMap<String,String>();
 			if(!validaEmail.equals("")) {
-				msg.put("msg", "Email já utilizado.");
+				msg.put("msg", "Email jï¿½ utilizado.");
 			}else if(usuario.getLogin().equals(usuariobd.getLogin())) {
-				msg.put("msg", "Login já utilizado.");
+				msg.put("msg", "Login jï¿½ utilizado.");
 			}else {
 				boolean retorno = jdbcUsuario.inserir(usuario);
 				if(retorno) {

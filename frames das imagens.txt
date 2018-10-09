@@ -4,8 +4,8 @@ A:370
 45 frames
 
 Bateria 1
-L: 1633
-A: 814
+L: 1289
+A: 655
 23 frames
 
 
@@ -214,3 +214,4 @@ A:907
 moinho de agua = maquina4
 L:1394
 A:952
+5 frames

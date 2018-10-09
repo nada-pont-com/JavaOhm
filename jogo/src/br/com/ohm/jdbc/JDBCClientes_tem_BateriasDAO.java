@@ -21,7 +21,7 @@ public class JDBCClientes_tem_BateriasDAO implements Clientes_tem_BateriasDAO{
 	public List<Clientes_tem_Baterias> clientesProcuramBaterias(String id){
 		List<Clientes_tem_Baterias> listaDeBateriasDoCliente = new ArrayList<Clientes_tem_Baterias>();
 		Clientes_tem_Baterias ClientesTemBaterias = null;
-		String comando = "SELECT * FROM clientes_tem_baterias WHERE Clientes_id=?";
+		String comando = "SELECT * FROM clientes_tem_baterias WHERE Clientes_id=? ORDER BY baterias_id ASC";
 		try {
 			PreparedStatement p = this.conexao.prepareStatement(comando);
 			p.setString(1, id);
@@ -49,13 +49,16 @@ public class JDBCClientes_tem_BateriasDAO implements Clientes_tem_BateriasDAO{
 		String comando = "INSERT INTO clientes_tem_baterias (clientes_id,baterias_id,quantidade) VALUES (?,?,?)";
 		try {
 			for(int i = 0;i < baterias.size();i++) {
+				int i2 = 0;
+				if(i==0){
+					i2 = 1;
+				}
 					PreparedStatement p = this.conexao.prepareStatement(comando);
 					p.setString(1, clienteId);
 					p.setInt(2, baterias.get(i).getId());
-					p.setInt(3, 1);
+					p.setInt(3, i2);
 					p.execute();
 			}
-			
 		} catch (SQLException e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -72,7 +75,22 @@ public class JDBCClientes_tem_BateriasDAO implements Clientes_tem_BateriasDAO{
 				p.setInt(1, listaDeBateriasDoCliente.get(i).getQuantidade());
 				p.setInt(2, listaDeBateriasDoCliente.get(i).getBateriasId());
 				p.setString(3, clienteId);
+				p.executeUpdate();
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public boolean deletarBaterias(int bateriasId,String clientesId){
+		String comando = "DELETE FROM clientes_tem_baterias WHERE baterias_id=? AND clientes_id = ?";
+		try {
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			p.setInt(1, bateriasId);
+			p.setString(2, clientesId);
+			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
