@@ -5,4 +5,9 @@
 -moinho de agua e vento melhorado = maquina 6 - 7 fase 4
 -carvão melhorado - fase 4 maquina8
 -nuclear  = maquina9
--antimateria = maquina10
+-carvao = maquina10
+-solar = maquina11
+-antimateria = maquina12
+-solar = 13
+-nuclear = 14
+-motor de fusao = 15
