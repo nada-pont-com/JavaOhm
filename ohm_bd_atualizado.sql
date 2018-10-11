@@ -99,7 +99,14 @@ INSERT INTO `maquinas` (`id`, `valor`, `pps`, `fase`, `subFase`, `desc`, `nome`)
 (005, 8000, 25, 003, NULL, 'Uma maquina a vapor que gera energia através da queima do carvão que gera vapor.', 'Maquina a vapor'),
 (006, 17500, 32, 004, 005, 'Uma usina que gera energia através da água.', 'Usina Hidrelétrica'),
 (007, 300000, 40, 004, 005, 'Uma maquina que gera energia através das forças do vento.', 'Aerogeradores'),
-(008, 47500, 70, 004, 005, '', 'Maquina a vapor v2');
+(008, 47500, 70, 004, 005, '', 'Maquina a vapor v2'),
+(009, 60000, 90, 005, NULL, 'Uma maquina que produz energia nuclear.', 'Maquina Nuclear'),
+(010, 75000, 100, 005, NULL, '', 'Maquina a vapor v3'),
+(011, 80000, 122, 005, NULL, 'Maquina que produz energia com o auxilio do sol.', 'Energia Solar'),
+(012, 125000, 150, 006, NULL, '', 'Antimatéria'),
+(013, 180000, 180, 006, NULL, 'Maquina que produz energia com o auxilio do sol.', 'Energia Solar v2'),
+(014, 220000, 210, 006, NULL, 'Uma maquina que produz energia nuclear.', 'Maquina Nuclear v2');
+
 
 -- -----------------------------------------------------
 -- Table `ohm_bd`.`fases`

@@ -68,7 +68,7 @@ public class JDBCClientes_tem_BateriasDAO implements Clientes_tem_BateriasDAO{
 	}
 
 	public boolean salvarBaterias(List<Clientes_tem_Baterias> listaDeBateriasDoCliente,String clienteId){
-		String comando = "UPDATE clientes_tem_pesquisas SET quantidade=? WHERE pesquisas_id=? AND clientes_id=?";
+		String comando = "UPDATE clientes_tem_baterias SET quantidade=? WHERE baterias_id=? AND clientes_id=?";
 		try {
 			PreparedStatement p = this.conexao.prepareStatement(comando);
 			for (int i = 0; i < listaDeBateriasDoCliente.size(); i++){
