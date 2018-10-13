@@ -138,6 +138,7 @@ CREATE TABLE IF NOT EXISTS `ohm_bd`.`clientes_tem_maquinas` (
   `maquinas_id` TINYINT UNSIGNED ZEROFILL NOT NULL COMMENT 'Armazena o id da máquina que o cliente possui, associa a tabela \"clientes\" com a tabela \"maquinas\".',
   `multiplicador` SMALLINT UNSIGNED NOT NULL COMMENT 'Armazena o multiplicador que as máquinas podem ganhar através das pesquisas que o jogador pode fazer.',
   `quantidade` SMALLINT UNSIGNED NOT NULL COMMENT 'Armazena a quantidade de determinadas máquinas que o jogador possui.',
+  `pesquisada` char(1) not null COMMENT "Armazena se a maquina foi ou não pesquisada. S para quando já foi pesquisada e N para quando não foi",
   PRIMARY KEY (`clientes_id`, `maquinas_id`),
   INDEX `fk_clientes_has_maquinas1_maquinas1_idx` (`maquinas_id` ASC),
   INDEX `fk_clientes_has_maquinas1_clientes1_idx` (`clientes_id` ASC),
@@ -155,9 +156,9 @@ ENGINE = InnoDB
 COMMENT = 'A tabela \"clientes_tem_maquinas\" é responsável por armazenar dados que relacionam os jogadores com as máquinas, assim englobando sua quantidade e o multiplicador que elas podem possuir como bonus.';
 
 
-INSERT INTO `clientes_tem_maquinas` (`clientes_id`, `maquinas_id`, `multiplicador`, `quantidade`) VALUES
-(0000000012, 001, 1, 1),
-(0000000012, 002, 1, 0);
+INSERT INTO `clientes_tem_maquinas` (`clientes_id`, `maquinas_id`, `multiplicador`, `quantidade`,`pesquisada`) VALUES
+(0000000012, 001, 1, 1,"S"),
+(0000000012, 002, 1, 0,"N");
 -- -----------------------------------------------------
 -- Table `ohm_bd`.`Baterias`
 -- -----------------------------------------------------

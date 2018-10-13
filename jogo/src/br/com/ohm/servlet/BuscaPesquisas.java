@@ -38,6 +38,7 @@ public class BuscaPesquisas extends HttpServlet {
 
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String fase = request.getParameter("fase");
+		int fase1 = Integer.parseInt(fase);
 		String clienteId = request.getParameter("id");
 		List<Pesquisa> listaDePesquisas = new ArrayList<Pesquisa>();
 		List<Clientes_tem_Pesquisas> listaDePesquisasDoCliente = new ArrayList<Clientes_tem_Pesquisas>();
@@ -51,7 +52,33 @@ public class BuscaPesquisas extends HttpServlet {
 			listaDePesquisasDoCliente = jdbcClientes_tem_Pesquisas.buscaPesquisasDosClientes(clienteId);
 			System.out.println(listaDePesquisasDoCliente.size()+"ola");
 			String json = "";
-			if(listaDePesquisasDoCliente.size()==0){
+			int size = listaDePesquisasDoCliente.size();
+			List<Pesquisa> pesquisa2 = null;
+			
+			for(int i = 0;i<listaDePesquisasDoCliente.size();i++){
+				pesquisa2 = new ArrayList<Pesquisa>();
+				pesquisa2 = jdbcPesquisas.buscaPesquisasPorId(listaDePesquisasDoCliente.get(i).getPesquisas_id());
+				if((pesquisa2.get(0).getFase()!=fase1)) {
+					//remover maquinas da fase anterior
+					if((listaDePesquisasDoCliente.get(i).getEstado()).equals("finalizada")){
+						jdbcClientes_tem_Pesquisas.deletarPesquisa(pesquisa2.get(0).getId(), clienteId);
+					}
+				}
+			}
+			System.out.println(listaDePesquisas.size()+"list");
+			System.out.println(listaDePesquisasDoCliente.size()+"ola2");
+			listaDePesquisasDoCliente = jdbcClientes_tem_Pesquisas.buscaPesquisasDosClientes(clienteId);
+			if(listaDePesquisasDoCliente.size()!=listaDePesquisas.size()){
+				listaDePesquisas = new ArrayList<Pesquisa>();
+				for(int i = 0;i<listaDePesquisasDoCliente.size();i++){
+					pesquisa2 = new ArrayList<Pesquisa>();
+					pesquisa2 = jdbcPesquisas.buscaPesquisasPorId(listaDePesquisasDoCliente.get(i).getPesquisas_id());
+					listaDePesquisas.add(pesquisa2.get(0));
+				}
+			}
+			System.out.println(listaDePesquisas.size()+"list2");
+
+			if(listaDePesquisasDoCliente.size()!=size){
 				boolean retorno = jdbcClientes_tem_Pesquisas.inserirPesquisas(clienteId,listaDePesquisas);
 				if(retorno){
 					listaDePesquisasDoCliente = jdbcClientes_tem_Pesquisas.buscaPesquisasDosClientes(clienteId);
@@ -68,6 +95,7 @@ public class BuscaPesquisas extends HttpServlet {
 				Object.add(listaDePesquisasDoCliente);
 				json = new Gson().toJson(Object);
 			}
+			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(json);	

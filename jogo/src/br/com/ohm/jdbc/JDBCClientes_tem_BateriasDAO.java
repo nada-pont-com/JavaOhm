@@ -98,7 +98,7 @@ public class JDBCClientes_tem_BateriasDAO implements Clientes_tem_BateriasDAO{
 		return true;
 	}
 
-	public boolean resetarBaterias(int id) {
+	public boolean resetarBaterias(int id){
 		try {
 			String comando = "DELETE FROM clientes_tem_baterias WHERE clientes_id = ?";
 			PreparedStatement p = this.conexao.prepareStatement(comando);

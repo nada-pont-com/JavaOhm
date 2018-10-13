@@ -13,7 +13,9 @@ import br.com.ohm.classes.Usuario;
 import br.com.ohm.jdbcinterface.ClienteDAO;
 
 public class JDBCClienteDAO implements ClienteDAO{
+
 	private Connection conexao;
+	
 	public JDBCClienteDAO(Connection conexao) {
 		this.conexao = conexao;
 	}
@@ -115,8 +117,6 @@ public class JDBCClienteDAO implements ClienteDAO{
 
 	public boolean inserirCliente(String login) {
 		String comando = "INSERT INTO clientes VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	//  '0',   '10',     '0',     '0',       '1', '2000-01-01 00:00:00', '1',   '1',     '1',  'vini', '10'
-	//energia,dinheiro,franklin,franklin_g,fase,     tempo,          maior_p,linha_pont,linha_a,login,dinheiro_g
 		try {
 			PreparedStatement p = this.conexao.prepareStatement(comando);
 			p.setInt(1, 0);
@@ -140,6 +140,7 @@ public class JDBCClienteDAO implements ClienteDAO{
 		
 		return true;
 	}
+
 	public boolean salvarCliente(Cliente cliente){
 		String comando = "UPDATE clientes SET dinheiro = ?, maior_pontuacao = ?, dinheiro_geral = ?, energia = ?, fase = ?, franklin = ?, franklin_geral = ?, tempo_jogo = ? WHERE usuarios_login = ?";
 		try {

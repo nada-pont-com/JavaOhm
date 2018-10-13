@@ -33,12 +33,14 @@ public class JDBCClientes_tem_MaquinasDAO implements Clientes_tem_MaquinasDAO{
 				int maquinas_id = rs.getInt("maquinas_id");
 				int multiplicador = rs.getInt("multiplicador");
 				int quantidade = rs.getInt("quantidade");
-				
+				String pesquisada = rs.getString("pesquisada");
+
 				maquinas.setClientes_id(clientes_id);
 				maquinas.setMaquinas_id(maquinas_id);
 				maquinas.setMultiplicador(multiplicador);
 				maquinas.setQuantidade(quantidade);
-				
+				maquinas.setPesquisada(pesquisada);
+
 				listaDeClientesTemMaquinas.add(maquinas);
 				
 				
@@ -49,9 +51,9 @@ public class JDBCClientes_tem_MaquinasDAO implements Clientes_tem_MaquinasDAO{
 		return listaDeClientesTemMaquinas;
 	}
 	
-	public boolean inserirMaquinasRespectivasFaseDoJogador(String clienteId,List<Maquina> maquinas) {
+	public boolean inserirMaquinasRespectivasFaseDoJogador(String clienteId,List<Maquina> maquinas){
 		try {
-			String comando = "INSERT INTO clientes_tem_maquinas (clientes_id,maquinas_id,multiplicador,quantidade) VALUES(?,?,?,?)";
+			String comando = "INSERT INTO clientes_tem_maquinas (clientes_id,maquinas_id,multiplicador,quantidade,pesquisada) VALUES(?,?,?,?,?)";
 			for(int i = 0;i<maquinas.size();i++) {
 				if(maquinas.get(i).getId()!=1) {
 					PreparedStatement p = conexao.prepareStatement(comando);
@@ -59,6 +61,7 @@ public class JDBCClientes_tem_MaquinasDAO implements Clientes_tem_MaquinasDAO{
 					p.setInt(2,maquinas.get(i).getId());
 					p.setInt(3, 1);
 					p.setInt(4, 0);
+					p.setString(5, "N");
 					p.execute();
 				}
 			}
@@ -70,15 +73,16 @@ public class JDBCClientes_tem_MaquinasDAO implements Clientes_tem_MaquinasDAO{
 		return true;
 	}
 
-	public boolean inserirMaquinaEspecial(int clienteId) {
+	public boolean inserirMaquinaEspecial(int clienteId){
 		// TODO Auto-generated method stub
-		String comando = "INSERT INTO clientes_tem_maquinas (clientes_id,maquinas_id,multiplicador,quantidade) VALUES(?,?,?,?)";
+		String comando = "INSERT INTO clientes_tem_maquinas (clientes_id,maquinas_id,multiplicador,quantidade,pesquisada) VALUES(?,?,?,?,?)";
 		try {
 			PreparedStatement p = conexao.prepareStatement(comando);
 			p.setInt(1, clienteId);
 			p.setInt(2,1);
 			p.setInt(3, 1);
 			p.setInt(4, 1);
+			p.setString(5, "S");
 			p.execute();
 		} catch (SQLException e) {
 			// TODO: handle exception
@@ -103,13 +107,14 @@ public class JDBCClientes_tem_MaquinasDAO implements Clientes_tem_MaquinasDAO{
 	}
 
 	public boolean salvarMaquinas(List<Clientes_tem_Maquinas> listaDeMaquinasDoCliente,String clienteId){
-		String comando = "UPDATE clientes_tem_maquinas SET quantidade=?, multiplicador=? WHERE maquinas_id=? AND clientes_id=?";
+		String comando = "UPDATE clientes_tem_maquinas SET quantidade=?, multiplicador=?, pesquisada=? WHERE maquinas_id=? AND clientes_id=?";
 		try {
 			
 			PreparedStatement p = this.conexao.prepareStatement(comando);
 			for (int i = 0; i < listaDeMaquinasDoCliente.size(); i++) {
 				p.setInt(1, listaDeMaquinasDoCliente.get(i).getQuantidade());
 				p.setInt(2, listaDeMaquinasDoCliente.get(i).getMultiplicador());
+				p.setString(3, listaDeMaquinasDoCliente.get(i).getPesquisada());
 				p.setInt(3, listaDeMaquinasDoCliente.get(i).getMaquinas_id());
 				p.setString(4, clienteId);
 				p.executeUpdate();

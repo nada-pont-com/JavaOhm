@@ -50,7 +50,6 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
         return listaDePesquisasDoCliente;
     }
 
-
     public boolean inserirPesquisas(String clienteId,List<Pesquisa> listaDePesquisas){
         String comando = "INSERT INTO clientes_tem_pesquisas (clientes_id,pesquisas_id,tempo,estado) VALUES (?,?,?,?)";
         try {
@@ -68,6 +67,7 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
         }
         return true;
     }
+
     public boolean salvarPesquisas(List<Clientes_tem_Pesquisas> listaDePesquisasDoCliente,String clienteId){
         String comando = "UPDATE clientes_tem_pesquisas SET estado=?, tempo=? WHERE pesquisas_id=? AND clientes_id=?";
 		try {
@@ -86,7 +86,21 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
 		return true;
     }
 
-	public boolean resetarPesquisas(int id) {
+    public boolean deletarPesquisa(int pesquisaId,String clienteId){
+        String comando = "DELETE FROM clientes_tem_pesquisas WHERE pesquisas_id=? AND clientes_id = ?";
+		try {
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			p.setInt(1, pesquisaId);
+			p.setString(2, clienteId);
+			p.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+        return true;
+    }
+
+	public boolean resetarPesquisas(int id){
 		try {
             String comando = "DELETE FROM clientes_tem_pesquisas WHERE clientes_id = ?";
             PreparedStatement p = this.conexao.prepareStatement(comando);

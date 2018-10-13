@@ -6,6 +6,7 @@ import br.com.ohm.classes.Cliente;
 import br.com.ohm.classes.Usuario;
 
 public interface ClienteDAO {
+
 	public List<Cliente> buscaDadosClientes(String referencia);
 	
 	public Cliente buscaClientePorId(int id);
@@ -13,4 +14,8 @@ public interface ClienteDAO {
 	public boolean removerCliente(Cliente login, Usuario vitima);
 	
 	public boolean inserirCliente(String login);
+
+	public boolean salvarCliente(Cliente cliente);
+
+	public boolean resetarCliente(String login);
 }

@@ -22,7 +22,7 @@ public class JDBCPesquisasDAO implements PesquisasDAO{
 		List<Pesquisa> listaDePesquisas = new ArrayList<Pesquisa>();
 		Pesquisa pesquisas = null;
 		try {
-			String comando = "SELECT * FROM pesquisas WHERE fase=?";
+			String comando = "SELECT * FROM pesquisas WHERE fase=? ORDER BY id";
 			PreparedStatement p = conexao.prepareStatement(comando);
 			p.setString(1, fase);
 			ResultSet rs = p.executeQuery();
@@ -46,6 +46,39 @@ public class JDBCPesquisasDAO implements PesquisasDAO{
 			}
 		} catch (SQLException e) {
 			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return listaDePesquisas;
+	}
+
+	public List<Pesquisa> buscaPesquisasPorId(int id){
+		List<Pesquisa> listaDePesquisas = new ArrayList<Pesquisa>();
+		Pesquisa pesquisa = null;
+		try {
+			String comando = "SELECT * FROM pesquisas WHERE id=?";
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			p.setInt(1, id);
+			ResultSet rs = p.executeQuery();
+			while(rs.next()) {
+				pesquisa = new Pesquisa();
+				String tempo = rs.getString("tempo");
+				int valor = rs.getInt("valor");
+				int idBd = rs.getInt("id");
+				int fase = rs.getInt("fase");
+				int mudaFase = rs.getInt("mudaFase");
+				String pesquisaBd = rs.getString("pesquisa");
+
+				pesquisa.setId(idBd);
+				pesquisa.setValor(valor);
+				pesquisa.setFase(fase);
+				pesquisa.setTempo(tempo);
+				pesquisa.setMudaFase(mudaFase);
+				pesquisa.setPesquisa(pesquisaBd);
+				
+				listaDePesquisas.add(pesquisa);
+			}
+			
+		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 		return listaDePesquisas;

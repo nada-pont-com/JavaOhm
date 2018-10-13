@@ -115,7 +115,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 	    for (int x=0; x<10; x++){
 	        int j = (int) (Math.random()*carct.length);
 	        geradorSenha += carct[j];
-	}
+		}
 	    return geradorSenha;
 	}
 
