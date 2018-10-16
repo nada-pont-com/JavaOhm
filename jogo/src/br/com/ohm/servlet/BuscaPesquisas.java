@@ -59,8 +59,11 @@ public class BuscaPesquisas extends HttpServlet {
 				pesquisa2 = new ArrayList<Pesquisa>();
 				pesquisa2 = jdbcPesquisas.buscaPesquisasPorId(listaDePesquisasDoCliente.get(i).getPesquisas_id());
 				if((pesquisa2.get(0).getFase()!=fase1)) {
-					//remover maquinas da fase anterior
-					if((listaDePesquisasDoCliente.get(i).getEstado()).equals("finalizada")){
+					//remover pesquisas da fase anterior
+					if((listaDePesquisasDoCliente.get(i).getEstado()).equals("finalizada") || (pesquisa2.get(0).getMudaFase()==1) || (pesquisa2.get(0).getFase()!=2 && pesquisa2.get(0).getFase()!=4)){
+						if((pesquisa2.get(0).getFase()!=2 && pesquisa2.get(0).getFase()!=4)){
+
+						}
 						jdbcClientes_tem_Pesquisas.deletarPesquisa(pesquisa2.get(0).getId(), clienteId);
 					}
 				}
@@ -68,7 +71,32 @@ public class BuscaPesquisas extends HttpServlet {
 			System.out.println(listaDePesquisas.size()+"list");
 			System.out.println(listaDePesquisasDoCliente.size()+"ola2");
 			listaDePesquisasDoCliente = jdbcClientes_tem_Pesquisas.buscaPesquisasDosClientes(clienteId);
-			if(listaDePesquisasDoCliente.size()!=listaDePesquisas.size()){
+			System.out.println(listaDePesquisasDoCliente.size()+"ola3");
+			
+			System.out.println(listaDePesquisas.size()+"list2");
+			boolean retorno = true;
+			if((listaDePesquisasDoCliente.size()!=size) || (listaDePesquisasDoCliente.size()==0)){
+				int validador = 0;
+				for(int i = 0;i<listaDePesquisas.size();i++){
+					for(int i2 = 0;i2<listaDePesquisasDoCliente.size();i2++){
+						if(listaDePesquisas.get(i).getId()==listaDePesquisasDoCliente.get(i2).getPesquisas_id()){
+							validador = 1;
+							break;
+						}else{
+							validador = 0;
+						}
+					}
+					if(validador == 0 ){
+						retorno = jdbcClientes_tem_Pesquisas.inserirPesquisa(clienteId,listaDePesquisas.get(i));
+						if(retorno){
+							listaDePesquisasDoCliente = jdbcClientes_tem_Pesquisas.buscaPesquisasDosClientes(clienteId);
+						}
+					}
+				}
+			}
+
+			if((listaDePesquisasDoCliente.size()>listaDePesquisas.size())){
+				System.out.println("porque");	
 				listaDePesquisas = new ArrayList<Pesquisa>();
 				for(int i = 0;i<listaDePesquisasDoCliente.size();i++){
 					pesquisa2 = new ArrayList<Pesquisa>();
@@ -76,26 +104,16 @@ public class BuscaPesquisas extends HttpServlet {
 					listaDePesquisas.add(pesquisa2.get(0));
 				}
 			}
-			System.out.println(listaDePesquisas.size()+"list2");
-
-			if(listaDePesquisasDoCliente.size()!=size){
-				boolean retorno = jdbcClientes_tem_Pesquisas.inserirPesquisas(clienteId,listaDePesquisas);
-				if(retorno){
-					listaDePesquisasDoCliente = jdbcClientes_tem_Pesquisas.buscaPesquisasDosClientes(clienteId);
-					Object.add(listaDePesquisas);
-					Object.add(listaDePesquisasDoCliente);
-					json = new Gson().toJson(Object);
-				}else{
-					Map<String,String> msg = new  HashMap<String,String>();
-					msg.put("msg", "Erro oa carregar pesquisas!");
-					json = new Gson().toJson(msg);
-				}
-			}else{
+			if(retorno){
 				Object.add(listaDePesquisas);
 				Object.add(listaDePesquisasDoCliente);
 				json = new Gson().toJson(Object);
+			}else{
+				Map<String,String> msg = new  HashMap<String,String>();
+				msg.put("msg", "Erro oa carregar pesquisas!");
+				json = new Gson().toJson(msg);
 			}
-			
+			System.out.println(json);	
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(json);	

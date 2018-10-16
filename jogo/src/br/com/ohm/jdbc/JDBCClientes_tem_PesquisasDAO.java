@@ -19,7 +19,6 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
         this.conexao = conexao;
     }
 
-
     public List<Clientes_tem_Pesquisas> buscaPesquisasDosClientes(String clienteId){
         List<Clientes_tem_Pesquisas> listaDePesquisasDoCliente = new ArrayList<Clientes_tem_Pesquisas>();
         Clientes_tem_Pesquisas clientes_tem_Pesquisas = null;
@@ -61,6 +60,22 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
                 p.setString(4, "n iniciada");
                 p.execute();
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean inserirPesquisa(String clienteId,Pesquisa pesquisa){
+        String comando = "INSERT INTO clientes_tem_pesquisas (clientes_id,pesquisas_id,tempo,estado) VALUES (?,?,?,?)";
+        try {
+            PreparedStatement p = this.conexao.prepareStatement(comando);
+            p.setString(1, clienteId);
+            p.setInt(2, pesquisa.getId());
+            p.setString(3, pesquisa.getTempo());
+            p.setString(4, "n iniciada");
+            p.execute();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

@@ -115,11 +115,28 @@ public class JDBCClientes_tem_MaquinasDAO implements Clientes_tem_MaquinasDAO{
 				p.setInt(1, listaDeMaquinasDoCliente.get(i).getQuantidade());
 				p.setInt(2, listaDeMaquinasDoCliente.get(i).getMultiplicador());
 				p.setString(3, listaDeMaquinasDoCliente.get(i).getPesquisada());
-				p.setInt(3, listaDeMaquinasDoCliente.get(i).getMaquinas_id());
-				p.setString(4, clienteId);
+				p.setInt(4, listaDeMaquinasDoCliente.get(i).getMaquinas_id());
+				p.setString(5, clienteId);
 				p.executeUpdate();
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public boolean insereMaquinasPorIdDoCliente(Maquina maquina,String clienteId){
+		try {
+			String comando = "INSERT INTO clientes_tem_maquinas (clientes_id,maquinas_id,multiplicador,quantidade,pesquisada) VALUES(?,?,?,?,?)";
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			p.setString(1, clienteId);
+			p.setInt(2, maquina.getId());
+			p.setInt(3, 1);
+			p.setInt(4, 0);
+			p.setString(5, "N");
+			p.execute();
+		}catch(SQLException e) {
 			e.printStackTrace();
 			return false;
 		}

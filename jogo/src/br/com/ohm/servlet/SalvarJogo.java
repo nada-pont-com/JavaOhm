@@ -71,6 +71,7 @@ public class SalvarJogo extends HttpServlet {
 						clientes_tem_Maquinas.setMultiplicador(Integer.parseInt(request.getParameter("multiplicador"+i)));
 						clientes_tem_Maquinas.setQuantidade(Integer.parseInt(request.getParameter("quantidade"+i)));
 						clientes_tem_Maquinas.setPesquisada(request.getParameter("pesquisada"+i));
+						System.out.println(clientes_tem_Maquinas.getPesquisada());
 
 						listadeMaquinasDoCliente.add(clientes_tem_Maquinas);
 					}

@@ -23,10 +23,11 @@ public class JDBCMaquinasDAO implements MaquinasDAO{
 		List<Maquina> listaDeMaquinas = new ArrayList<Maquina>();
 		Maquina maquina = null;
 		try {
-			String comando = "SELECT * FROM maquinas WHERE fase=? or fase=?";
+			String comando = "SELECT * FROM maquinas WHERE fase=? or fase=? or subFase=?";
 			PreparedStatement p = this.conexao.prepareStatement(comando);
 			p.setString(1, fase);
 			p.setInt(2, 10);
+			p.setString(3, fase);
 			ResultSet rs = p.executeQuery();
 			while(rs.next()) {
 				maquina = new Maquina();

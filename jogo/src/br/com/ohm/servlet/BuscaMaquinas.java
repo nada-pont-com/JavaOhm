@@ -51,7 +51,7 @@ public class BuscaMaquinas extends HttpServlet {
 			JDBCClientes_tem_MaquinasDAO jdbcClientes_tem_Maquinas = new JDBCClientes_tem_MaquinasDAO(conexao);
 			clientes_tem_maquinas = jdbcClientes_tem_Maquinas.clientesProcuramMaquinas(clienteId);				
 			List<Maquina> maquinas2 = null;
-			
+			System.out.println(new Gson().toJson(maquinas));
 			for(int i = 1;i<clientes_tem_maquinas.size();i++){
 				maquinas2 = new ArrayList<Maquina>();
 				maquinas2 = jdbcMaquinas.buscaMaquinasPorId(clientes_tem_maquinas.get(i).getMaquinas_id());
@@ -62,22 +62,32 @@ public class BuscaMaquinas extends HttpServlet {
 			}
 			clientes_tem_maquinas = jdbcClientes_tem_Maquinas.clientesProcuramMaquinas(clienteId);
 			String json = "";
+			boolean retorno = true;
 			if(clientes_tem_maquinas.size()==1) {
-				boolean retorno= jdbcClientes_tem_Maquinas.inserirMaquinasRespectivasFaseDoJogador(clienteId, maquinas);
+				retorno = jdbcClientes_tem_Maquinas.inserirMaquinasRespectivasFaseDoJogador(clienteId, maquinas);
 				if(retorno) {
 					clientes_tem_maquinas = jdbcClientes_tem_Maquinas.clientesProcuramMaquinas(clienteId);
 					Object.add(clientes_tem_maquinas);
 					Object.add(maquinas);
 					json = new Gson().toJson(Object);
-				}else {
-					Map<String,String> msg = new HashMap<String,String>();
-					msg.put("msg", "Erro ao carregar o maquinas");
-					json = new Gson().toJson(msg);
 				}
-			}else {
+			}else if(maquinas.size()>clientes_tem_maquinas.size()){
+				clientes_tem_maquinas = new ArrayList<Clientes_tem_Maquinas>();
+				for(int i = 0;i<maquinas.size();i++){
+					if(maquinas.get(i).getFase()==fase1){
+						jdbcClientes_tem_Maquinas.insereMaquinasPorIdDoCliente(maquinas.get(i),clienteId);
+						clientes_tem_maquinas = jdbcClientes_tem_Maquinas.clientesProcuramMaquinas(clienteId);
+					}
+				}
+			}
+			if(retorno){
 				Object.add(clientes_tem_maquinas);
 				Object.add(maquinas);
 				json = new Gson().toJson(Object);
+			}else {
+				Map<String,String> msg = new HashMap<String,String>();
+				msg.put("msg", "Erro ao carregar o maquinas");
+				json = new Gson().toJson(msg);
 			}
 			conec.fecharConexao();
 			response.setContentType("application/json");

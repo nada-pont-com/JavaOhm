@@ -53,7 +53,6 @@ public class BuscaBaterias extends HttpServlet {
 			
 			listaDeBaterias = jdbcBaterias.BuscaBaterias(fase);
 			listaDeClientesTemBaterias = jdbcClientes_tem_Baterias.clientesProcuramBaterias(clienteId);
-			System.out.println(listaDeClientesTemBaterias.size());
 			String json = "";
 			List<Bateria> baterias2 = null;
 			for(int i = 0;i<listaDeClientesTemBaterias.size();i++){
@@ -85,7 +84,6 @@ public class BuscaBaterias extends HttpServlet {
 				Object.add(listaDeBaterias);
 				json = new Gson().toJson(Object);
 			}
-			System.out.println(json);
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(json);

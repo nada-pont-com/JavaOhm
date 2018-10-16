@@ -10,6 +10,8 @@ public interface Clientes_tem_PesquisasDAO {
     public List<Clientes_tem_Pesquisas> buscaPesquisasDosClientes(String clienteId);
 
     public boolean inserirPesquisas(String clienteId,List<Pesquisa> listaDePesquisas);
+
+    public boolean inserirPesquisa(String clienteId, Pesquisa pesquisa);
     
     public boolean salvarPesquisas(List<Clientes_tem_Pesquisas> listaDePesquisasDoCliente,String clienteId);
     

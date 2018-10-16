@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -38,12 +39,12 @@ public class BuscaUsuario extends HttpServlet {
     	// TODO Auto-generated method stub
     	List<Object> objetos = new ArrayList<Object>();
     	try {
-    		System.out.println(request.getParameter("login"));
     		Conexao conec = new Conexao();
     		Connection conexao = conec.abrirConexao();
     		JDBCUsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
-    		JDBCClienteDAO jdbcCliente = new JDBCClienteDAO(conexao);
-    		Usuario usuario = jdbcUsuario.buscaLogin(request.getParameter("login"));
+			JDBCClienteDAO jdbcCliente = new JDBCClienteDAO(conexao);
+			HttpSession sessao = request.getSession();
+    		Usuario usuario = jdbcUsuario.buscaLogin(sessao.getAttribute("login").toString());
     		objetos.add(usuario);
     		if(usuario.getPermissao().equals("1")) {
     			
