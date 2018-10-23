@@ -56,13 +56,13 @@ public class RemoverConta extends HttpServlet {
 				if(delUsu){
 					msg.put("msg", "Conta apagada com sucesso.");
 				}else if(!delUsu){
-					msg.put("msg", "N�o foi poss�vel deletar a conta do usuario.");
+					msg.put("msg", "Não foi possível deletar a conta do usuario.");
 				}
 			}else if(!delCli){
-				msg.put("msg", "N�o foi poss�vel deletar a conta do jogador.");
+				msg.put("msg", "Não foi possível deletar a conta do jogador.");
 			}
 		}else if(!delDen){
-			msg.put("msg", "N�o foi poss�vel deletar a denuncia.");
+			msg.put("msg", "Não foi possível deletar a denuncia.");
 		}
 		
 		

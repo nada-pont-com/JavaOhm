@@ -62,7 +62,7 @@ public class Entrar extends HttpServlet {
 					msg.put("msg", "Senha incorreta.");
 				}
 			}else {
-				msg.put("msg", "Login n√£o existe.");
+				msg.put("msg", "Login n„o existe.");
 			}
 			
 			String json = new Gson().toJson(msg);

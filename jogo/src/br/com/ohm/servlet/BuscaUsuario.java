@@ -43,8 +43,14 @@ public class BuscaUsuario extends HttpServlet {
     		Connection conexao = conec.abrirConexao();
     		JDBCUsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			JDBCClienteDAO jdbcCliente = new JDBCClienteDAO(conexao);
-			HttpSession sessao = request.getSession();
-    		Usuario usuario = jdbcUsuario.buscaLogin(sessao.getAttribute("login").toString());
+			String login = request.getParameter("login");
+			Usuario usuario = new Usuario();
+			if(login == null) {
+				HttpSession sessao = request.getSession();
+				usuario = jdbcUsuario.buscaLogin(sessao.getAttribute("login").toString());				
+			}else {
+				usuario = jdbcUsuario.buscaLogin(login);
+			}
     		objetos.add(usuario);
     		if(usuario.getPermissao().equals("1")) {
     			

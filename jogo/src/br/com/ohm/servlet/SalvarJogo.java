@@ -71,7 +71,6 @@ public class SalvarJogo extends HttpServlet {
 						clientes_tem_Maquinas.setMultiplicador(Integer.parseInt(request.getParameter("multiplicador"+i)));
 						clientes_tem_Maquinas.setQuantidade(Integer.parseInt(request.getParameter("quantidade"+i)));
 						clientes_tem_Maquinas.setPesquisada(request.getParameter("pesquisada"+i));
-						System.out.println(clientes_tem_Maquinas.getPesquisada());
 
 						listadeMaquinasDoCliente.add(clientes_tem_Maquinas);
 					}
@@ -83,17 +82,17 @@ public class SalvarJogo extends HttpServlet {
 				break;
 				case "pesquisas":
 					List<Clientes_tem_Pesquisas> listadePesquisasDoCliente = new ArrayList<Clientes_tem_Pesquisas>();
-					List<Pesquisa> listadePesquisas = new ArrayList<Pesquisa>();
-					JDBCPesquisasDAO jdbcPesquisas = new JDBCPesquisasDAO(conexao);
+					List<Clientes_tem_Pesquisas> listadePesquisasDoClienteBd = new ArrayList<Clientes_tem_Pesquisas>();
 					JDBCClientes_tem_PesquisasDAO jdbcClientes_tem_Pesquisas = new JDBCClientes_tem_PesquisasDAO(conexao);
 					Clientes_tem_Pesquisas clientes_tem_Pesquisas = null;
-					listadePesquisas = jdbcPesquisas.buscaPesquisas(fase);
-					for(int i = 0;i<listadePesquisas.size();i++){
+					listadePesquisasDoClienteBd = jdbcClientes_tem_Pesquisas.buscaPesquisasDosClientes(clienteId);
+
+					for(int i = 0;i<listadePesquisasDoClienteBd.size();i++){
 						clientes_tem_Pesquisas = new Clientes_tem_Pesquisas();
 						clientes_tem_Pesquisas.setPesquisas_id(Integer.parseInt(request.getParameter("id"+i)));
 						clientes_tem_Pesquisas.setEstado(request.getParameter("estado"+i));
 						clientes_tem_Pesquisas.setTempo(request.getParameter("tempo"+i));
-
+						System.out.println(i+": i");
 						listadePesquisasDoCliente.add(clientes_tem_Pesquisas);
 					}
 					retorno = jdbcClientes_tem_Pesquisas.salvarPesquisas(listadePesquisasDoCliente,clienteId);

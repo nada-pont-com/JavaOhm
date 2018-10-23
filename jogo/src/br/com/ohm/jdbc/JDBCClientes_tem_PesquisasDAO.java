@@ -87,6 +87,7 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
         String comando = "UPDATE clientes_tem_pesquisas SET estado=?, tempo=? WHERE pesquisas_id=? AND clientes_id=?";
 		try {
 			PreparedStatement p = this.conexao.prepareStatement(comando);
+			System.out.println(listaDePesquisasDoCliente.size());
 			for (int i = 0; i < listaDePesquisasDoCliente.size(); i++){
 				p.setString(1, listaDePesquisasDoCliente.get(i).getEstado());
 				p.setString(2, listaDePesquisasDoCliente.get(i).getTempo());

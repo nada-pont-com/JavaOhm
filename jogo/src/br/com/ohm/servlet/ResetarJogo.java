@@ -51,7 +51,8 @@ public class ResetarJogo extends HttpServlet {
 		
 		Map<String, String>msg = new HashMap<String, String>();
 		
-		cliente = jdbcCliente.buscaDadosClientes(sessao.getAttribute("login").toString());
+		String login = request.getParameter("login");
+		cliente = jdbcCliente.buscaDadosClientes(login);
 		boolean retorno;
 		retorno = jdbcPesquisas.resetarPesquisas(cliente.get(0).getId());
 		String validador = "";
@@ -60,7 +61,7 @@ public class ResetarJogo extends HttpServlet {
 			if(retorno){
 				retorno = jdbcBaterias.resetarBaterias(cliente.get(0).getId());
 				if(retorno){
-					retorno = jdbcCliente.resetarCliente(sessao.getAttribute("login").toString());
+					retorno = jdbcCliente.resetarCliente(login);
 					if(!retorno){
 						validador = "Cliente";
 					}

@@ -83,7 +83,7 @@ public class EsqueciSenha extends HttpServlet {
 				throw new RuntimeException(e);
 			}
 		}else {
-			msg.put("msg", "E-mail n�o encontrado em nossos servidores!");
+			msg.put("msg", "E-mail não encontrado em nossos servidores!");
 		}
 		conec.fecharConexao();
 		String json = new Gson().toJson(msg);

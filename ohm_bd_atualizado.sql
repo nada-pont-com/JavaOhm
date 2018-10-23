@@ -173,8 +173,14 @@ CREATE TABLE IF NOT EXISTS `ohm_bd`.`baterias` (
 ENGINE = InnoDB;
 
 
-INSERT INTO `baterias` (`id`, `nome`, `armazenamento`, `desc`, `fase`,`valor`) VALUES
-(1, 'bateria', 15000, 'Uma bateria que armazena 15k de energia.', 1,500);
+INSERT INTO `baterias` (`id`, `nome`, `armazenamento`, `desc`, `fase`, `valor`) VALUES
+(1, 'bateria', 1500, 'Uma bateria que armazena 15k de energia.', 1, 500),
+(2, 'Bateria v2', 3000, 'uma bateria', 2, 10000),
+(3, 'Bateria v3', 5000, 'Bateria', 3, 30000),
+(4, 'Bateria v4', 7500, 'Bateria v4', 4, 45000),
+(5, 'Bateria v5', 9000, 'Bateria v5', 5, 50000),
+(6, 'Bateria v6', 12000, 'Bateria v6', 6, 80000);
+
 
 
 -- -----------------------------------------------------
@@ -214,9 +220,22 @@ CREATE TABLE IF NOT EXISTS `ohm_bd`.`Pesquisas` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
+INSERT INTO `pesquisas` (`id`, `pesquisa`, `tempo`, `valor`, `fase`, `mudaFase`) VALUES
+(1, 'Maquina Automatica', '00:01:00', 10, 1, NULL),
+(2, 'Moinho de vento', '00:10:00', 20000, 1, 1),
+(3, 'Moinho de agua', '00:20:00', 30000, 2, NULL),
+(4, 'Maquina a vapor', '00:30:00', 100000, 2, 1),
+(5, 'Usina Hidrelétrica', '00:45:00', 750000, 3, 1),
+(6, 'Aerogeradores', '00:55:00', 1000000, 4, NULL),
+(7, 'Maquina a vapor v2 ', '01:10:00', 1750000, 4, NULL),
+(8, 'Maquina Nucler', '02:00:00', 2200000, 4, 1),
+(9, 'Maquina a vapor v3', '02:30:00', 2500000, 5, NULL),
+(10, 'Energia Solar', '02:45:00', 3000000, 5, NULL),
+(11, 'Antimatéria', '03:00:00', 4500000, 5, 1),
+(12, 'Energia Solar v2', '04:00:00', 6000000, 6, NULL),
+(13, 'Maquina Nuclear v2', '04:30:00', 7000000, 6, NULL),
+(14, 'Motor de Fusão', '05:30:00', 10000000, 6, 1);
 
-INSERT INTO `pesquisas` (`id`, `pesquisa`, `tempo`, `valor`, `fase`,`mudaFase`) VALUES
-(1, 'Moinho de vento', '00:10:00', 10000, 1,1);
 
 
 -- -----------------------------------------------------
