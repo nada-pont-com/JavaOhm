@@ -24,7 +24,6 @@ public class JDBCDenunciaDAO implements DenunciaDAO{
 	public boolean inserirDenuncia(Denuncia denuncia,List<Cliente> cliente) {
 		String comando = "INSERT INTO denuncias values (?,?,?,?)";
 		try {
-			System.out.println(denuncia.getDenuncia()+denuncia.getLoginDenuncia()+cliente.get(0).getId());
 			PreparedStatement p = this.conexao.prepareStatement(comando);
 			p.setString(1,null);
 			p.setString(2,denuncia.getDenuncia());

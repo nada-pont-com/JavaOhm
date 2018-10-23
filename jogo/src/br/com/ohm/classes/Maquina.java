@@ -9,6 +9,7 @@ public class Maquina implements Serializable{
 	private int valor;
 	private int pps;
 	private int fase;
+	private int subFase;
 	private String nome;
 	private String desc;
 	
@@ -35,6 +36,16 @@ public class Maquina implements Serializable{
 	
 	public int getFase() {
 		return this.fase;
+	}
+	
+
+	
+	public void setSubFase(int subFase) { 
+		this.subFase = subFase;
+	}
+	
+	public int getSubFase() { 
+		return this.subFase;
 	}
 	
 	public void setPps(int pps) {

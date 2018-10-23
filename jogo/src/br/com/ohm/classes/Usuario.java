@@ -89,8 +89,6 @@ public class Usuario implements Serializable{
 		Date date = new Date();
 		String ultimoAcesso = "";
 		ultimoAcesso = data.format(date).toString();
-		System.out.println(ultimoAcesso);
-		System.out.println(date);
 		return ultimoAcesso;
 	}
 

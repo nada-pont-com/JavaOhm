@@ -37,12 +37,7 @@ COMMENT = 'A tabela \"usuarios\" é responsável por armazenar os dados referent
 
 
 INSERT INTO `usuarios` (`login`, `senha`, `nome`, `email`, `ultimo_acesso`, `permissao`, `nascimento`) VALUES
-('123', '202CB962AC59075B964B07152D234B70', '123', '123', '2018-07-30', 2, '1200-12-12'),
-('1234', '202CB962AC59075B964B07152D234B70', '1234', '1234', '2018-09-07', 1, '1200-12-12'),
-('12345', '202CB962AC59075B964B07152D234B70', 'nada', '12345', '2018-08-22', 2, '1200-12-12'),
-('nada', '202CB962AC59075B964B07152D234B70', 'nada', 'nada.pont.com@gmail.com', '2018-08-06', 2, '1200-12-12'),
-('vini', '202CB962AC59075B964B07152D234B70', 'vini', 'vini', '2018-08-06', 2, '1200-12-12');
-
+('admin', '21232F297A57A5A743894A0E4A801FC3', 'admin', 'admin@gmail.com', '2018-08-06', 2, '1200-12-12');
 
 -- -----------------------------------------------------
 -- Table `ohm_bd`.`clientes`
@@ -71,9 +66,6 @@ ENGINE = InnoDB
 COMMENT = 'A tabela \"clientes\" armazena os dados dos clientes, ou sjea, é referentes aos usuários com a permissão de jogadores, afinal ela é responsável por armazenar os dados dos jogadores com relação ao jogo, como sua quantidade de dinheirom faze que se encontram e similiares.';
 
 
-INSERT INTO `clientes` (`id`, `energia`, `dinheiro`, `franklin`, `franklin_geral`, `fase`, `tempo_jogo`, `maior_pontuacao`, `linha_da_pontuacao`, `linha_atual`, `usuarios_login`, `dinheiro_geral`) VALUES
-(0000000012, 0, 10, 0, 0, 1, '2000-01-01 02:00:00', 10, 1, 1, '1234', 10);
-
 
 -- -----------------------------------------------------
 -- Table `ohm_bd`.`maquinas`
@@ -99,11 +91,11 @@ INSERT INTO `maquinas` (`id`, `valor`, `pps`, `fase`, `subFase`, `desc`, `nome`)
 (005, 8000, 25, 003, NULL, 'Uma maquina a vapor que gera energia através da queima do carvão que gera vapor.', 'Maquina a vapor'),
 (006, 17500, 32, 004, 005, 'Uma usina que gera energia através da água.', 'Usina Hidrelétrica'),
 (007, 300000, 40, 004, 005, 'Uma maquina que gera energia através das forças do vento.', 'Aerogeradores'),
-(008, 47500, 70, 004, 005, '', 'Maquina a vapor v2'),
+(008, 47500, 70, 004, 005, 'Uma maquina que gera energia através do vapor', 'Maquina a vapor v2'),
 (009, 60000, 90, 005, NULL, 'Uma maquina que produz energia nuclear.', 'Maquina Nuclear'),
-(010, 75000, 100, 005, NULL, '', 'Maquina a vapor v3'),
+(010, 75000, 100, 005, NULL, 'Uma maquina que gera energia através do vapor', 'Maquina a vapor v3'),
 (011, 80000, 122, 005, NULL, 'Maquina que produz energia com o auxilio do sol.', 'Energia Solar'),
-(012, 125000, 150, 006, NULL, '', 'Antimatéria'),
+(012, 125000, 150, 006, NULL, 'Uma maquina que produz energia através de antimateria', 'Antimatéria'),
 (013, 180000, 180, 006, NULL, 'Maquina que produz energia com o auxilio do sol.', 'Energia Solar v2'),
 (014, 220000, 210, 006, NULL, 'Uma maquina que produz energia nuclear.', 'Maquina Nuclear v2');
 
@@ -155,10 +147,6 @@ CREATE TABLE IF NOT EXISTS `ohm_bd`.`clientes_tem_maquinas` (
 ENGINE = InnoDB
 COMMENT = 'A tabela \"clientes_tem_maquinas\" é responsável por armazenar dados que relacionam os jogadores com as máquinas, assim englobando sua quantidade e o multiplicador que elas podem possuir como bonus.';
 
-
-INSERT INTO `clientes_tem_maquinas` (`clientes_id`, `maquinas_id`, `multiplicador`, `quantidade`,`pesquisada`) VALUES
-(0000000012, 001, 1, 1,"S"),
-(0000000012, 002, 1, 0,"N");
 -- -----------------------------------------------------
 -- Table `ohm_bd`.`Baterias`
 -- -----------------------------------------------------
@@ -175,8 +163,8 @@ ENGINE = InnoDB;
 
 INSERT INTO `baterias` (`id`, `nome`, `armazenamento`, `desc`, `fase`, `valor`) VALUES
 (1, 'bateria', 1500, 'Uma bateria que armazena 15k de energia.', 1, 500),
-(2, 'Bateria v2', 3000, 'uma bateria', 2, 10000),
-(3, 'Bateria v3', 5000, 'Bateria', 3, 30000),
+(2, 'Bateria v2', 3000, 'Bateria v2', 2, 10000),
+(3, 'Bateria v3', 5000, 'Bateria v3', 3, 30000),
 (4, 'Bateria v4', 7500, 'Bateria v4', 4, 45000),
 (5, 'Bateria v5', 9000, 'Bateria v5', 5, 50000),
 (6, 'Bateria v6', 12000, 'Bateria v6', 6, 80000);
@@ -222,8 +210,8 @@ ENGINE = InnoDB;
 
 INSERT INTO `pesquisas` (`id`, `pesquisa`, `tempo`, `valor`, `fase`, `mudaFase`) VALUES
 (1, 'Maquina Automatica', '00:01:00', 10, 1, NULL),
-(2, 'Moinho de vento', '00:10:00', 20000, 1, 1),
-(3, 'Moinho de agua', '00:20:00', 30000, 2, NULL),
+(2, 'Moinho de vento', '00:10:00', 30000, 1, 1),
+(3, 'Moinho de agua', '00:20:00', 31000, 2, NULL),
 (4, 'Maquina a vapor', '00:30:00', 100000, 2, 1),
 (5, 'Usina Hidrelétrica', '00:45:00', 750000, 3, 1),
 (6, 'Aerogeradores', '00:55:00', 1000000, 4, NULL),
@@ -260,11 +248,6 @@ CREATE TABLE IF NOT EXISTS `ohm_bd`.`clientes_tem_baterias` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
-
-INSERT INTO `clientes_tem_baterias` (`clientes_id`, `baterias_id`, `quantidade`) VALUES
-(0000000012, 1, 1);
-
 -- -----------------------------------------------------
 -- Table `ohm_bd`.`clientes_tem_Pesquisas`
 -- -----------------------------------------------------
@@ -287,9 +270,6 @@ CREATE TABLE IF NOT EXISTS `ohm_bd`.`clientes_tem_Pesquisas` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-INSERT INTO `clientes_tem_pesquisas` (`clientes_id`, `pesquisas_id`, `tempo`, `estado`) VALUES
-(0000000012, 1, '00:10:00', 'n iniciada');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

@@ -22,7 +22,6 @@ import br.com.ohm.jdbc.JDBCClienteDAO;
 import br.com.ohm.jdbc.JDBCClientes_tem_BateriasDAO;
 import br.com.ohm.jdbc.JDBCClientes_tem_MaquinasDAO;
 import br.com.ohm.jdbc.JDBCClientes_tem_PesquisasDAO;
-import br.com.ohm.jdbc.JDBCUsuarioDAO;
 
 /**
  * Servlet implementation class ResetarJogo
@@ -39,15 +38,12 @@ public class ResetarJogo extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    private void process(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException  {
-    	int id = 0;
+    private void process(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException  {
     	
     	List<Cliente> cliente = new ArrayList<Cliente>();
 		HttpSession sessao = request.getSession();
     	Conexao conec = new Conexao();
     	Connection conexao = conec.abrirConexao();
-    	JDBCUsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 		JDBCClienteDAO jdbcCliente = new JDBCClienteDAO(conexao);
 		JDBCClientes_tem_BateriasDAO jdbcBaterias = new JDBCClientes_tem_BateriasDAO(conexao);
 		JDBCClientes_tem_MaquinasDAO jdbcMaquinas = new JDBCClientes_tem_MaquinasDAO(conexao);
@@ -55,17 +51,34 @@ public class ResetarJogo extends HttpServlet {
 		
 		Map<String, String>msg = new HashMap<String, String>();
 		
-		id = jdbcCliente.buscaDadosClientes(sessao.getAttribute("login").toString()).get(0).getId();
-		
-		jdbcPesquisas.resetarPesquisas(id);
-		jdbcMaquinas.resetarMaquinas(id);
-		jdbcBaterias.resetarBaterias(id);
-		jdbcCliente.resetarCliente(sessao.getAttribute("login").toString());
-		 
-		if(id == 0){
-			msg.put("msg", "Não foi possível resetar o jogo!");
+		String login = request.getParameter("login");
+		cliente = jdbcCliente.buscaDadosClientes(login);
+		boolean retorno;
+		retorno = jdbcPesquisas.resetarPesquisas(cliente.get(0).getId());
+		String validador = "";
+		if(retorno){
+			retorno = jdbcMaquinas.resetarMaquinas(cliente.get(0).getId());
+			if(retorno){
+				retorno = jdbcBaterias.resetarBaterias(cliente.get(0).getId());
+				if(retorno){
+					retorno = jdbcCliente.resetarCliente(login);
+					if(!retorno){
+						validador = "Cliente";
+					}
+				}else{
+					validador = "Baterias";
+				}
+			}else{
+				validador = "Maquinas";
+			}
 		}else{
+			validador = "Pesquisas";
+		}
+		 
+		if(validador.equals("")){
 			msg.put("msg", "Jogo resetado com sucesso!");
+		}else{
+			msg.put("msg", "NÃ£o foi possÃ­vel resetar os jogo referente as "+validador);
 		}
 		
 		conec.fecharConexao();

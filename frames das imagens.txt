@@ -4,12 +4,12 @@ A:370
 45 frames
 
 Bateria 1
-L: 1633
-A: 814
+L: 1289
+A: 655
 23 frames
 
 
-Bateria 7:
+Bateria 7: por hora 6
 L: 159
 A: 271
 16 frames
@@ -40,7 +40,7 @@ L:266
 A:462
 17 frames
 
-carvão 1:
+carvão 1 maquina5:
 L:228
 A:414
 3 frames
@@ -50,7 +50,7 @@ L:224
 A:340
 3 frames
 
-carvão 2-1:
+carvão 2-1 = maquina8:
 L:210
 A:353
 3 frames
@@ -65,19 +65,19 @@ L:291
 A:346
 3 frames
 
-carvão 3-2:
+carvão 3-2 = maquina10:
 L:281
 A:339
 3 frames
 
 
-solar 1:
+solar 1 maquina11:
 L:356
 A:428
 39 frames
 
 
-solar 2:
+solar 2 maquina13:
 L:358
 A:428
 33 frames
@@ -87,13 +87,13 @@ L:319
 A:214
 41 frames
 
-antimateria 2:
-L:319
-A:214
+antimateria 2 maquina12:
+L:289
+A:205
 41 frames
 
 
-nuclear 1:
+nuclear 1 maquina9:
 L:129
 A:118
 35 frames
@@ -104,7 +104,7 @@ A:139 talvez  140
 35 frames
 
 
-nuclear 3:
+nuclear 3 maquina14:
 L:87
 A:87
 21 frames
@@ -167,8 +167,8 @@ A:106
 3 frames
 
 resetarJ:
-L:143
-A:106
+L:107
+A:109
 2 frames
 
 resetarF:
@@ -207,6 +207,16 @@ L:739
 A:1148
 
 
-eolica nv2:
+eolica nv2 = maquina7:
 L:686
 A:907
+
+moinho de agua =maquina4
+L:1394
+A:952
+
+
+maquina6:
+L:1414
+A:1040
+5 frames

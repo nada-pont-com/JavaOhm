@@ -76,7 +76,6 @@ public class EsqueciSenha extends HttpServlet {
 				message.setSubject("Sua senha foi redefinida!!!");
 				message.setText("Um nova senha foi requisitada no ohm o Jogo!\n\n"+"Email: "+email+"\nLogin: "+login+"\nNova senha: "+novaSenha);
 				Transport.send(message);
-				System.out.println("Feito!!!");
 				msg.put("msg", "E-mail enviado com sucesso!");
 				jdbcUsuario.atualizarSenha(novaSenha, login);
 				
@@ -84,7 +83,7 @@ public class EsqueciSenha extends HttpServlet {
 				throw new RuntimeException(e);
 			}
 		}else {
-			msg.put("msg", "E-mail n„o encontrado em nossos servidores!");
+			msg.put("msg", "E-mail n√£o encontrado em nossos servidores!");
 		}
 		conec.fecharConexao();
 		String json = new Gson().toJson(msg);

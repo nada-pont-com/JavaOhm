@@ -10,6 +10,7 @@ public class Clientes_tem_Maquinas implements Serializable{
 	private int maquinas_id;
 	private int multiplicador;
 	private int quantidade;
+	private String pesquisada;
 	
 	public void setClientes_id(int clientes_id) {
 		this.clientes_id = clientes_id;
@@ -40,5 +41,13 @@ public class Clientes_tem_Maquinas implements Serializable{
 	
 	public int getQuantidade() {
 		return this.quantidade;
+	}
+
+	public void setPesquisada(String pesquisada) {
+		this.pesquisada = pesquisada;
+	}
+	
+	public String getPesquisada() {
+		return this.pesquisada;
 	}
 }

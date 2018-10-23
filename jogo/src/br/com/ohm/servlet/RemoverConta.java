@@ -46,7 +46,6 @@ public class RemoverConta extends HttpServlet {
 		JDBCClienteDAO jdbcCliente = new JDBCClienteDAO(conexao);
 		JDBCDenunciaDAO jdbcDenuncia = new JDBCDenunciaDAO(conexao);
 		Cliente login = jdbcCliente.buscaClientePorId(id);
-		System.out.println(login.getLogin());
 		Usuario usuario = jdbcUsuario.buscaLogin(login.getLogin());
 		Map<String, String>msg = new HashMap<String, String>();
 		boolean delDen = jdbcDenuncia.removerDenunciaPorCliente(login, usuario);
@@ -57,13 +56,13 @@ public class RemoverConta extends HttpServlet {
 				if(delUsu){
 					msg.put("msg", "Conta apagada com sucesso.");
 				}else if(!delUsu){
-					msg.put("msg", "Não foi possível deletar a conta do usuario.");
+					msg.put("msg", "NÃ£o foi possÃ­vel deletar a conta do usuario.");
 				}
 			}else if(!delCli){
-				msg.put("msg", "Não foi possível deletar a conta do jogador.");
+				msg.put("msg", "NÃ£o foi possÃ­vel deletar a conta do jogador.");
 			}
 		}else if(!delDen){
-			msg.put("msg", "Não foi possível deletar a denuncia.");
+			msg.put("msg", "NÃ£o foi possÃ­vel deletar a denuncia.");
 		}
 		
 		

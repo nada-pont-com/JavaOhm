@@ -44,15 +44,11 @@ public class Entrar extends HttpServlet {
 			JDBCUsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 			Usuario usuario = jdbcUsuario.buscaLogin(request.getParameter("txtlogin"));
 			Map<String,String> msg = new HashMap<String,String>();
-			System.out.println(usuario.getLogin());
-			System.out.println(request.getParameter("txtlogin"));
 			
 			if(request.getParameter("txtlogin").equals(usuario.getLogin())) {
-				System.out.println("teste2");
 				String senhaCripitografada = Cripitografia.criptografaSenha(request.getParameter("pwdsenha").toString());
 				if(senhaCripitografada.equals(usuario.getSenha())){
 					HttpSession sessao = request.getSession();
-					System.out.println("teste3");
 					
 					sessao.setAttribute("login", usuario.getLogin());
 					sessao.setAttribute("permissao", usuario.getPermissao());
@@ -63,7 +59,6 @@ public class Entrar extends HttpServlet {
 						msg.put("url", "pags/jogador/index.html");
 					}
 				}else {
-					System.out.println("teste4");
 					msg.put("msg", "Senha incorreta.");
 				}
 			}else {

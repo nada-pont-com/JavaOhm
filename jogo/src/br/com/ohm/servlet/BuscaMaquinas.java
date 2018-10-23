@@ -40,8 +40,6 @@ public class BuscaMaquinas extends HttpServlet {
 		String fase = request.getParameter("fase");
 		String clienteId = request.getParameter("id");
 		int fase1 = Integer.parseInt(fase);
-		System.out.println(fase);
-		System.out.println(clienteId);
 		List<Maquina> maquinas = new ArrayList<Maquina>();
 		List<Clientes_tem_Maquinas> clientes_tem_maquinas = new ArrayList<Clientes_tem_Maquinas>();
 		List<Object> Object = new ArrayList<Object>();
@@ -51,31 +49,47 @@ public class BuscaMaquinas extends HttpServlet {
 			JDBCMaquinasDAO jdbcMaquinas = new JDBCMaquinasDAO(conexao);
 			maquinas = jdbcMaquinas.buscaMaquinas(fase);
 			JDBCClientes_tem_MaquinasDAO jdbcClientes_tem_Maquinas = new JDBCClientes_tem_MaquinasDAO(conexao);
-			if((fase1-1)!=0) {
-				//remover maquinas da fase anterior
-			}
 			clientes_tem_maquinas = jdbcClientes_tem_Maquinas.clientesProcuramMaquinas(clienteId);				
+			List<Maquina> maquinas2 = null;
+			System.out.println(new Gson().toJson(maquinas));
+			for(int i = 1;i<clientes_tem_maquinas.size();i++){
+				maquinas2 = new ArrayList<Maquina>();
+				maquinas2 = jdbcMaquinas.buscaMaquinasPorId(clientes_tem_maquinas.get(i).getMaquinas_id());
+				if((maquinas2.get(0).getFase()!=fase1) && (maquinas2.get(0).getSubFase()!=fase1)) {
+					//remover maquinas da fase anterior
+					jdbcClientes_tem_Maquinas.deletarMaquinas(maquinas2.get(0).getId(), clienteId);
+				}
+			}
+			clientes_tem_maquinas = jdbcClientes_tem_Maquinas.clientesProcuramMaquinas(clienteId);
 			String json = "";
-			System.out.println();
-			if(clientes_tem_maquinas.size()==1) {				
-				boolean retorno= jdbcClientes_tem_Maquinas.inserirMaquinasRespectivasFaseDoJogador(clienteId, maquinas);
+			boolean retorno = true;
+			if(clientes_tem_maquinas.size()==1) {
+				retorno = jdbcClientes_tem_Maquinas.inserirMaquinasRespectivasFaseDoJogador(clienteId, maquinas);
 				if(retorno) {
 					clientes_tem_maquinas = jdbcClientes_tem_Maquinas.clientesProcuramMaquinas(clienteId);
 					Object.add(clientes_tem_maquinas);
 					Object.add(maquinas);
 					json = new Gson().toJson(Object);
-				}else {
-					Map<String,String> msg = new HashMap<String,String>();
-					msg.put("msg", "Erro ao carregar o maquinas");
-					json = new Gson().toJson(msg);
 				}
-			}else {
+			}else if(maquinas.size()>clientes_tem_maquinas.size()){
+				clientes_tem_maquinas = new ArrayList<Clientes_tem_Maquinas>();
+				for(int i = 0;i<maquinas.size();i++){
+					if(maquinas.get(i).getFase()==fase1){
+						jdbcClientes_tem_Maquinas.insereMaquinasPorIdDoCliente(maquinas.get(i),clienteId);
+						clientes_tem_maquinas = jdbcClientes_tem_Maquinas.clientesProcuramMaquinas(clienteId);
+					}
+				}
+			}
+			if(retorno){
 				Object.add(clientes_tem_maquinas);
 				Object.add(maquinas);
 				json = new Gson().toJson(Object);
+			}else {
+				Map<String,String> msg = new HashMap<String,String>();
+				msg.put("msg", "Erro ao carregar o maquinas");
+				json = new Gson().toJson(msg);
 			}
 			conec.fecharConexao();
-			System.out.println(json+" ola");
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(json);

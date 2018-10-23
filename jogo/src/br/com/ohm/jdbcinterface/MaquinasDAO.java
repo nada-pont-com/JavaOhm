@@ -8,4 +8,6 @@ public interface MaquinasDAO {
 
 	
 	public List<Maquina> buscaMaquinas(String fase);
+
+	public List<Maquina> buscaMaquinasPorId(int id);
 }
