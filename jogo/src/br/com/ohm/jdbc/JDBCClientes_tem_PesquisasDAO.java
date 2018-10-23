@@ -129,4 +129,17 @@ public class JDBCClientes_tem_PesquisasDAO implements Clientes_tem_PesquisasDAO{
         return true;		
 	}
 
+	public boolean deletarTodasAsPesquisasDoCliente(int clientesId){
+		String comando = "DELETE FROM clientes_tem_pesquisas WHERE clientes_id = ?";
+		try{
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			p.setInt(1, clientesId);
+			p.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
 }

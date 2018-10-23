@@ -65,23 +65,12 @@ public class JDBCClienteDAO implements ClienteDAO{
 	}
 	
 	public boolean removerCliente(Cliente login, Usuario vitima){
-		String comando = "DELETE FROM ";
-		Statement p;
-		
-		System.out.println("Vitima login: " + vitima.getLogin());
-		System.out.println("Login login: " + login.getLogin());
-		if(vitima.getLogin().equals(login.getLogin())){
-			String comandocm = comando + "clientes_tem_maquinas WHERE clientes_id = " + login.getId();
-			String comandoc = comando + "clientes WHERE id = " + login.getId();
-			
-			try{
-				p = this.conexao.createStatement();
-				p.execute(comandocm);
-				p.execute(comandoc);
-			} catch(SQLException e){
-				e.printStackTrace();
-			}
-		}else{
+		String comando = "DELETE FROM clientes WHERE id = " + login.getId();
+		try{
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			p.execute(comando);
+		} catch(SQLException e){
+			e.printStackTrace();
 			return false;
 		}
 		return true;

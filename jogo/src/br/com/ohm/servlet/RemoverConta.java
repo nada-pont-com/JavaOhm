@@ -16,6 +16,9 @@ import com.google.gson.Gson;
 import br.com.ohm.classes.Cliente;
 import br.com.ohm.classes.Usuario;
 import br.com.ohm.conexao.Conexao;
+import br.com.ohm.jdbc.JDBCClientes_tem_BateriasDAO;
+import br.com.ohm.jdbc.JDBCClientes_tem_MaquinasDAO;
+import br.com.ohm.jdbc.JDBCClientes_tem_PesquisasDAO;
 import br.com.ohm.jdbc.JDBCUsuarioDAO;
 import br.com.ohm.jdbc.JDBCClienteDAO;
 import br.com.ohm.jdbc.JDBCDenunciaDAO;
@@ -45,11 +48,22 @@ public class RemoverConta extends HttpServlet {
 		JDBCUsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
 		JDBCClienteDAO jdbcCliente = new JDBCClienteDAO(conexao);
 		JDBCDenunciaDAO jdbcDenuncia = new JDBCDenunciaDAO(conexao);
+		JDBCClientes_tem_MaquinasDAO jdbcClientes_tem_Maquinas = new JDBCClientes_tem_MaquinasDAO(conexao);
+		JDBCClientes_tem_BateriasDAO jdbcClientes_tem_Baterias = new JDBCClientes_tem_BateriasDAO(conexao);
+		JDBCClientes_tem_PesquisasDAO jdbcClientes_tem_Pesquisas = new JDBCClientes_tem_PesquisasDAO(conexao);
 		Cliente login = jdbcCliente.buscaClientePorId(id);
 		Usuario usuario = jdbcUsuario.buscaLogin(login.getLogin());
 		Map<String, String>msg = new HashMap<String, String>();
 		boolean delDen = jdbcDenuncia.removerDenunciaPorCliente(login, usuario);
 		if(delDen){
+			boolean delPes = jdbcClientes_tem_Pesquisas.deletarTodasAsPesquisasDoCliente(login.getId());
+			if(delPes){
+			boolean delBat = jdbcClientes_tem_Baterias.deletarTodasAsBateriasDoCliente(login.getId());
+			if(delBat){
+			boolean delMaq = jdbcClientes_tem_Maquinas.deletarTodasAsMaquinasDoCliente(login.getId());
+			if(delMaq){
+				
+			
 			boolean delCli = jdbcCliente.removerCliente(login, usuario);
 			if(delCli){
 				boolean delUsu = jdbcUsuario.remover(login.getLogin(), usuario);
@@ -60,6 +74,9 @@ public class RemoverConta extends HttpServlet {
 				}
 			}else if(!delCli){
 				msg.put("msg", "Não foi possível deletar a conta do jogador.");
+			}
+			}
+			}
 			}
 		}else if(!delDen){
 			msg.put("msg", "Não foi possível deletar a denuncia.");
