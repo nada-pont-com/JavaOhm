@@ -84,6 +84,7 @@ public class BuscaBaterias extends HttpServlet {
 				Object.add(listaDeBaterias);
 				json = new Gson().toJson(Object);
 			}
+			conec.fecharConexao();
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(json);

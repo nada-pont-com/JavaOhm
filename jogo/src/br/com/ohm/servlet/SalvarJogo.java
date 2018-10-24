@@ -138,6 +138,7 @@ public class SalvarJogo extends HttpServlet {
 			msg.put("msg", "Erro ao salvar Jogo");
 			msg.put("l", "false");
 		}
+		conec.fecharConexao();
 	}
 
 	/**

@@ -41,7 +41,6 @@ public class ResetarJogo extends HttpServlet {
     private void process(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException  {
     	
     	List<Cliente> cliente = new ArrayList<Cliente>();
-		HttpSession sessao = request.getSession();
     	Conexao conec = new Conexao();
     	Connection conexao = conec.abrirConexao();
 		JDBCClienteDAO jdbcCliente = new JDBCClienteDAO(conexao);

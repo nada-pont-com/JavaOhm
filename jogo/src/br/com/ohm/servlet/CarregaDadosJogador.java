@@ -46,7 +46,8 @@ public class CarregaDadosJogador extends HttpServlet {
 	    	cliente = jdbcCliente.buscaDadosClientes(sessao.getAttribute("login").toString());
 	    	
 	    	String json = new Gson().toJson(cliente);
-	    	System.out.println(json);
+			System.out.println(json);
+			conec.fecharConexao();
 	    	response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(json);    	

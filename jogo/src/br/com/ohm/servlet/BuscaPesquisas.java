@@ -113,7 +113,7 @@ public class BuscaPesquisas extends HttpServlet {
 				msg.put("msg", "Erro oa carregar pesquisas!");
 				json = new Gson().toJson(msg);
 			}
-			System.out.println(json);	
+			conec.fecharConexao();
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(json);	

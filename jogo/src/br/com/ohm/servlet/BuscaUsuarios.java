@@ -43,7 +43,6 @@ public class BuscaUsuarios extends HttpServlet {
 	    	usuarios = jdbcUsuario.buscaPorLogin(request.getParameter("busca").toString());
 	    	conec.fecharConexao();
 	    	
-	    	
 	    	String json = new Gson().toJson(usuarios);
     		response.setContentType("application/json");
     		response.setCharacterEncoding("UTF-8");

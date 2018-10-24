@@ -57,7 +57,8 @@ public class BuscaUsuario extends HttpServlet {
     			List<Cliente> clientes = jdbcCliente.buscaDadosClientes(usuario.getLogin());
     			Cliente cliente = clientes.get(0);
     			objetos.add(cliente);
-    		}
+			}
+			conec.fecharConexao();
     		response.setContentType("application/json");
     		response.setCharacterEncoding("UTF-8");
     		response.getWriter().write(new Gson().toJson(objetos));
