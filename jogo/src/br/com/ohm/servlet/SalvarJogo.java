@@ -20,7 +20,6 @@ import br.com.ohm.classes.Clientes_tem_Baterias;
 import br.com.ohm.classes.Clientes_tem_Maquinas;
 import br.com.ohm.classes.Clientes_tem_Pesquisas;
 import br.com.ohm.classes.Maquina;
-import br.com.ohm.classes.Pesquisa;
 import br.com.ohm.conexao.Conexao;
 import br.com.ohm.jdbc.JDBCBateriasDAO;
 import br.com.ohm.jdbc.JDBCClienteDAO;
@@ -28,7 +27,6 @@ import br.com.ohm.jdbc.JDBCClientes_tem_BateriasDAO;
 import br.com.ohm.jdbc.JDBCClientes_tem_MaquinasDAO;
 import br.com.ohm.jdbc.JDBCClientes_tem_PesquisasDAO;
 import br.com.ohm.jdbc.JDBCMaquinasDAO;
-import br.com.ohm.jdbc.JDBCPesquisasDAO;
 
 /**
  * Servlet implementation class SalvarJogo
