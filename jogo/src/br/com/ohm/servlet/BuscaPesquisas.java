@@ -114,6 +114,7 @@ public class BuscaPesquisas extends HttpServlet {
 				json = new Gson().toJson(msg);
 			}
 			conec.fecharConexao();
+
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(json);	
