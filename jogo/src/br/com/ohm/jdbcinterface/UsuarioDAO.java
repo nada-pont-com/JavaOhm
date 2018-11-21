@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.ohm.classes.Usuario;
 
-public interface UsuarioDAO {
+public interface UsuarioDAO{
 	
 	public Usuario buscaLogin(String login);
 	

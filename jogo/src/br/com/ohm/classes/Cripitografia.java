@@ -1,6 +1,6 @@
 package br.com.ohm.classes;
 
-import java.security.MessageDigest;
+import java.security.MessageDigest; 
 
 public class Cripitografia {
 	static public String criptografaSenha(String senha) {

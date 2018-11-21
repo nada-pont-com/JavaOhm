@@ -12,7 +12,7 @@ import br.com.ohm.classes.Cripitografia;
 import br.com.ohm.classes.Usuario;
 import br.com.ohm.jdbcinterface.UsuarioDAO;
 
-public class JDBCUsuarioDAO implements UsuarioDAO {
+public class JDBCUsuarioDAO implements UsuarioDAO{
 	
 	private Connection conexao;
 	public JDBCUsuarioDAO(Connection conexao) {
@@ -156,6 +156,19 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 		return true;
 	}
 
+	public void atualizarUltimoAcesso(Usuario usuario){
+		String comando = "UPDATE usuarios SET ultimo_acesso=? WHERE login=?";
+		PreparedStatement p;
+		try {
+			p = this.conexao.prepareStatement(comando);
+			p.setString(1, usuario.ultimoAcesso());
+			p.setString(2, usuario.getLogin());
+			p.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public boolean remover(String login, Usuario vitima){
 		String comando = "DELETE FROM ";
 		Statement p;
@@ -186,6 +199,26 @@ public class JDBCUsuarioDAO implements UsuarioDAO {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public int buscaAcessos(){
+		String comando = "SELECT *, COUNT(ultimo_acesso) AS qtd FROM  usuarios WHERE ultimo_acesso=?";
+		Usuario usuario = new Usuario();
+		int quant = 0;
+		try {
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			p.setString(1,usuario.ultimoAcesso());
+			ResultSet rs = p.executeQuery();
+			while(rs.next()){
+				quant = rs.getInt("qtd");
+				System.out.println(usuario.ultimoAcesso());
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		return quant;
 	}
 	
 }

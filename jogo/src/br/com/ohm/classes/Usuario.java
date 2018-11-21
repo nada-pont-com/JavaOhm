@@ -1,4 +1,4 @@
-package br.com.ohm.classes;
+package br.com.ohm.classes; 
 
 import java.io.Serializable;
 import java.text.DateFormat;

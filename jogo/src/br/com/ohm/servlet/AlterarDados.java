@@ -57,17 +57,17 @@ public class AlterarDados extends HttpServlet {
 					boolean retorno = jdbcUsuario.atualizar(usuario);
 
 					if (retorno) {
-						msg.put("msg", "Os dados do usu·rio foram alterado com sucesso.");
+						msg.put("msg", "Os dados do usu√°rio foram alterado com sucesso.");
 					} else {
-						msg.put("msg", "N„o foi possÌvel alterar os dados do usu·rio.");
+						msg.put("msg", "N√£o foi poss√≠vel alterar os dados do usu√°rio.");
 						msg.put("erro", "true");
 					}
 				} else {
-					msg.put("msg", "Senha n„o corresponde com o cadastro.");
+					msg.put("msg", "Senha n√£o corresponde com o cadastro.");
 					msg.put("erro", "true");
 				}
 			} else {	
-				msg.put("msg", "VocÍ n„o pode alterar seu usu·rio.");
+				msg.put("msg", "Voc√™ n√£o pode alterar seu usu√°rio.");
 				msg.put("erro", "true");
 			}	
 			conec.fecharConexao();

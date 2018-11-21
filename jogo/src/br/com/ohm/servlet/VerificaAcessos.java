@@ -10,71 +10,43 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
-import br.com.ohm.classes.Cripitografia;
-import br.com.ohm.classes.Usuario;
 import br.com.ohm.conexao.Conexao;
 import br.com.ohm.jdbc.JDBCUsuarioDAO;
 
 /**
- * Servlet implementation class Entrar
+ * Servlet implementation class VerificaAcessos
  */
-@WebServlet("/Entrar")
-public class Entrar extends HttpServlet {
+@WebServlet("/VerificaAcessos")
+public class VerificaAcessos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Entrar() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    
-    
-    private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-    	// TODO Auto-generated method stub
-    	try {
-    		System.out.println("teste");
+	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		try {
 			Conexao conec = new Conexao();
 			Connection conexao = conec.abrirConexao();
 			JDBCUsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
-			Usuario usuario = jdbcUsuario.buscaLogin(request.getParameter("txtlogin"));
-			Map<String,String> msg = new HashMap<String,String>();
-			
-			if(request.getParameter("txtlogin").equals(usuario.getLogin())) {
-				String senhaCripitografada = Cripitografia.criptografaSenha(request.getParameter("pwdsenha").toString());
-				if(senhaCripitografada.equals(usuario.getSenha())){
-					HttpSession sessao = request.getSession();
-					
-					sessao.setAttribute("login", usuario.getLogin());
-					sessao.setAttribute("permissao", usuario.getPermissao());
-					jdbcUsuario.atualizarUltimoAcesso(usuario);
-					if(sessao.getAttribute("permissao").equals("2")) {
-						msg.put("url", "pags/adm/index.html");
-					}else {
-						msg.put("url", "pags/jogador/index.html");
-					}
-				}else {
-					msg.put("msg", "Senha incorreta.");
-				}
-			}else {
-				msg.put("msg", "Login n�o existe.");
-			}
-			
-			String json = new Gson().toJson(msg);
-			System.out.println(json);
+			int quant = jdbcUsuario.buscaAcessos();
 			conec.fecharConexao();
+			Map<String,String> msg = new HashMap<String,String>();
+			if(quant==-1){
+				msg.put("msg", "Erro ao cerregar acessos");
+			}else{
+				msg.put("quant", ""+quant);
+			}
+			String json = new Gson().toJson(msg);
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(json);
-		} catch (Exception e) {
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-    }
-
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -90,8 +62,5 @@ public class Entrar extends HttpServlet {
 		// TODO Auto-generated method stub
 		process(request, response);
 	}
-
-
-
 
 }

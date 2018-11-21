@@ -44,7 +44,6 @@ public class CadastroUsuario extends HttpServlet {
 			usuario.setNome(request.getParameter("txtnome"));
 			usuario.setEmail(request.getParameter("txtemail"));
 			usuario.setUltimoAcesso(usuario.ultimoAcesso());
-			usuario.setPermissao(request.getParameter("txtpermissao"));
 			usuario.setNascimento(request.getParameter("txtnascimento"));
 			usuario.setPermissao(usuario.verificaPermissao(request.getParameter("adm")));
 			System.out.println("login "+usuario.getLogin()+" nome "+usuario.getNome()+" nasci "+usuario.getNascimento()+" perm "+usuario.getPermissao()+" senha "+usuario.getSenha());
@@ -62,7 +61,7 @@ public class CadastroUsuario extends HttpServlet {
 				msg.put("msg", "Login já utilizado.");
 			}else {
 				boolean retorno = jdbcUsuario.inserir(usuario);
-				if(retorno) {
+				if((retorno)  && (usuario.getPermissao().equals("1"))) {
 					boolean inserirCliente = jdbcCliente.inserirCliente(usuario.getLogin());
 					if(inserirCliente) {
 						boolean inserirMaquinaEspecial = jdbcClientes_tem_Maquinas.inserirMaquinaEspecial(jdbcCliente.buscaDadosClientes(usuario.getLogin()).get(0).getId());
